@@ -284,6 +284,63 @@
     
     // Note: Removed fade-in animations that were hiding content
     // Feature cards and example cards are now always visible
+    
+    // Handle screenshot scroll indicator
+    const screenshotBody = document.querySelector('.screenshot-body');
+    const screenshotFrame = screenshotBody?.closest('.screenshot-frame');
+    
+    if (screenshotBody && screenshotFrame) {
+      let scrollTimeout;
+      
+      // Hide indicator when scrolling starts
+      screenshotBody.addEventListener('scroll', () => {
+        screenshotFrame.classList.add('scrolling');
+        
+        // Clear existing timeout
+        clearTimeout(scrollTimeout);
+        
+        // Remove scrolling class after scroll stops (for touch)
+        scrollTimeout = setTimeout(() => {
+          screenshotFrame.classList.remove('scrolling');
+        }, 150);
+        
+        // Check if at bottom
+        const isAtBottom = screenshotBody.scrollHeight - screenshotBody.scrollTop <= screenshotBody.clientHeight + 10;
+        if (isAtBottom) {
+          screenshotFrame.classList.add('at-bottom');
+        } else {
+          screenshotFrame.classList.remove('at-bottom');
+        }
+      });
+      
+      // Handle touch events - hide on touch, show on touch end
+      let touchStartTime;
+      let isScrolling = false;
+      
+      screenshotBody.addEventListener('touchstart', () => {
+        screenshotFrame.classList.add('scrolling');
+        touchStartTime = Date.now();
+        isScrolling = false;
+      });
+      
+      screenshotBody.addEventListener('touchmove', () => {
+        isScrolling = true;
+      });
+      
+      screenshotBody.addEventListener('touchend', () => {
+        // Remove scrolling class after a delay to allow indicator to show again
+        setTimeout(() => {
+          if (!isScrolling || screenshotBody.scrollTop === 0) {
+            screenshotFrame.classList.remove('scrolling');
+          }
+        }, 400);
+      });
+      
+      // Handle mouse leave - ensure indicator can show again on hover
+      screenshotFrame.addEventListener('mouseleave', () => {
+        screenshotFrame.classList.remove('scrolling');
+      });
+    }
   }
 
   // Run when DOM is ready

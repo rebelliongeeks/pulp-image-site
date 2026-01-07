@@ -8,29 +8,47 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 
 ### Placeholders to Replace
 
-| Location | What to Replace | File(s) |
-|----------|-----------------|---------|
-| **UI Screenshots** | Replace `.screenshot-placeholder` elements with actual UI screenshots | `index.html`, `ui.html` |
-| **Terminal Animations** | Replace `.terminal-placeholder` elements with asciinema embeds or GIFs | `index.html` |
-| **Download ZIP URLs** | Update `getDownloadURL()` with real GitHub Release URLs | `app.js`, `search.js` |
+| Location | What to Replace | File(s) | Status |
+|----------|-----------------|---------|--------|
+| **UI Screenshots** | Replace `.screenshot-placeholder` elements with actual UI screenshots | `index.html`, `ui.html` | 🟡 In Progress |
+| **Terminal Animations** | Replace `.terminal-placeholder` elements with asciinema embeds or GIFs | `index.html` | ⚪ Not Started |
+| **Download ZIP URLs** | Update `getDownloadURL()` with real GitHub Release URLs | `app.js`, `search.js` | ✅ URLs configured (need actual files) |
 
 ### Screenshots Needed
 
-1. **Homepage hero** — Main UI screenshot showing the full interface
-2. **UI Guide** — Screenshots for each section:
+1. ✅ **Homepage hero** — Main UI screenshot showing the full interface *(COMPLETED - scrollable with gradient & indicator)*
+2. **UI Showcase section** — Screenshot for UI showcase on homepage (`index.html` line 286)
+3. **UI Guide** — Screenshots for each section:
+   - Interface overview
    - File selection (drag & drop / browse)
    - Output settings panel
    - Format & quality options
-   - Advanced options (alpha mode, background color)
+   - Dimensions controls
+   - Quality slider
+   - Background color picker
+   - Rename pattern input
    - Processing results summary
-   - Individual file results
 
 > ⚠️ **Note:** Some placeholder elements have overlay text (titles/descriptions) that may need to be removed or repositioned when adding actual images. Review each placeholder carefully when replacing.
 
 ### Terminal Animations Needed
 
-1. **CLI showcase** — Basic batch conversion workflow
-2. **Homepage examples** — Quick demo of common commands
+1. **CLI showcase** — Basic batch conversion workflow (`index.html` line 352)
+2. **Homepage examples** — Quick demo of common commands (optional)
+
+---
+
+### Progress Summary
+
+**Completed:**
+- ✅ Hero section screenshot (index.html) - Full UI screenshot with scrollable container, gradient fade, scroll indicator, and subtle animation
+
+**Remaining:**
+- ⚪ 1 screenshot in index.html (UI showcase section)
+- ⚪ 1 terminal animation in index.html (CLI showcase)
+- ⚪ 8 screenshots in ui.html (various UI sections)
+
+**Total Progress:** 1/10 placeholders completed (10%)
 
 ### Download Files to Create
 

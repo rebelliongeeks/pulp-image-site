@@ -3,7 +3,7 @@
  * Header and Footer are loaded from a single source
  */
 
-const SITE_VERSION = 'v0.1.5';
+const SITE_VERSION = 'v0.1.6';
 
 // Navigation HTML - Single source of truth
 function getNavHTML(activePage = '') {

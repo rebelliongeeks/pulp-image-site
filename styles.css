@@ -800,6 +800,7 @@ code {
   box-shadow: var(--shadow-xl);
   overflow: hidden;
   border: 1px solid var(--warm-gray-200);
+  position: relative;
 }
 
 .screenshot-frame-floating {
@@ -840,10 +841,148 @@ code {
 
 .screenshot-body {
   min-height: 320px;
+  max-height: 600px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background: var(--cream);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  /* Custom orange scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--orange-primary) var(--cream);
+}
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+.screenshot-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.screenshot-body::-webkit-scrollbar-track {
+  background: var(--cream);
+  border-radius: 4px;
+}
+
+.screenshot-body::-webkit-scrollbar-thumb {
+  background: var(--orange-primary);
+  border-radius: 4px;
+  border: 2px solid var(--cream);
+}
+
+.screenshot-body::-webkit-scrollbar-thumb:hover {
+  background: var(--orange-dark);
+}
+
+/* Hide scrollbar on mobile for better UX */
+@media (max-width: 768px) {
+  .screenshot-body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .screenshot-body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Make indicator visible on mobile initially */
+  .screenshot-frame::before {
+    font-size: 0.7rem;
+    padding: 6px 12px;
+    bottom: 15px;
+    opacity: 1;
+  }
+  
+  /* Hide on mobile when scrolling or touching */
+  .screenshot-frame.scrolling::before,
+  .screenshot-frame:hover::before {
+    opacity: 0;
+  }
+}
+
+/* Scroll indicator - positioned on frame, not body, so it stays fixed */
+.screenshot-frame::before {
+  content: '↓ Scroll to see more';
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 140, 66, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Hide indicator on hover */
+.screenshot-frame:hover::before {
+  opacity: 0;
+}
+
+/* Hide indicator when scrolling */
+.screenshot-frame.scrolling::before {
+  opacity: 0;
+}
+
+/* Hide button when scrolled to bottom */
+.screenshot-frame.at-bottom::before {
+  opacity: 0;
+}
+
+/* Fade gradient at bottom - positioned on frame, not body, so it stays fixed */
+.screenshot-frame::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to bottom, 
+    rgba(254, 247, 237, 0) 0%, 
+    rgba(254, 247, 237, 0.6) 40%, 
+    rgba(254, 247, 237, 0.9) 80%, 
+    rgba(254, 247, 237, 1) 100%);
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide gradient when scrolled to bottom */
+.screenshot-frame.at-bottom::after {
+  opacity: 0;
+}
+
+.screenshot-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  animation: subtleScrollHint 3s ease-in-out infinite;
+}
+
+/* Subtle scroll hint animation - gently moves screenshot up/down to indicate scrollability */
+@keyframes subtleScrollHint {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Pause animation on hover or when scrolling */
+.screenshot-frame:hover .screenshot-image,
+.screenshot-frame.scrolling .screenshot-image,
+.screenshot-frame.at-bottom .screenshot-image {
+  animation-play-state: paused;
 }
 
 .screenshot-placeholder {
