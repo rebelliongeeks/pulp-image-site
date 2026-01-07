@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Guide — Pulp Image</title>
+  <meta name="description" content="Complete guide to the Pulp Image browser UI. Learn how to use every feature with visual examples.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="help-page">
+  <!-- Navigation (loaded from components.js) -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Hero -->
+  <header class="help-hero">
+    <div class="help-hero-container">
+      <span class="section-badge">Browser UI</span>
+      <h1 class="help-hero-title">UI Guide</h1>
+      <p class="help-hero-desc">A complete guide to processing images with the Pulp Image browser-based UI. No command line needed.</p>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="help-content">
+    <div class="help-container">
+      
+      <!-- Getting Started -->
+      <section class="help-section" id="getting-started">
+        <h2 class="help-section-title">Getting Started</h2>
+        
+        <div class="help-text">
+          <p>Pulp Image provides two ways to use the graphical interface:</p>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">Option 1: Portable UI (Recommended)</h4>
+          <div class="help-card-text">
+            Download the portable UI for your operating system from the <a href="/" style="color: var(--orange-text);">homepage</a>. Extract the zip file and run the application. No installation or Node.js required!
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">Option 2: Browser UI via CLI</h4>
+          <div class="help-card-text">
+            If you have the CLI installed, run <code>pulp ui</code> in your terminal to start a local web server. Then open <code>http://localhost:3000</code> in your browser.
+          </div>
+        </div>
+
+        <div class="help-card help-card-info">
+          <h4 class="help-card-title">ℹ️ Everything Happens Locally</h4>
+          <div class="help-card-text">
+            All image processing happens on your computer. No files are ever uploaded to the internet. Your images stay private and processing is fast.
+          </div>
+        </div>
+      </section>
+
+      <!-- Interface Overview -->
+      <section class="help-section" id="interface-overview">
+        <h2 class="help-section-title">Interface Overview</h2>
+        
+        <div class="ui-screenshot">
+          <div class="ui-screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="ui-screenshot-body">
+            <div class="ui-screenshot-placeholder">
+              <div class="placeholder-icon">🎛️</div>
+              <span class="placeholder-title">Main Interface Overview</span>
+              <span class="placeholder-desc">The Pulp Image interface with all processing options visible. Select files at the top, configure options in the middle, and see results at the bottom.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-text">
+          <p>The interface is divided into three main areas:</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Area</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Input Source</strong></td>
+              <td>Select the images you want to process. You can select individual files or entire folders.</td>
+            </tr>
+            <tr>
+              <td><strong>Processing Options</strong></td>
+              <td>Configure format, dimensions, quality, and other settings.</td>
+            </tr>
+            <tr>
+              <td><strong>Results</strong></td>
+              <td>After processing, see detailed stats for each file including bytes saved.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Input Source -->
+      <section class="help-section" id="selecting-images">
+        <h2 class="help-section-title">Selecting Images</h2>
+        
+        <div class="ui-screenshot">
+          <div class="ui-screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="ui-screenshot-body">
+            <div class="ui-screenshot-placeholder">
+              <div class="placeholder-icon">📁</div>
+              <span class="placeholder-title">Input Source Section</span>
+              <span class="placeholder-desc">Toggle between "Files" and "Folder" mode. Click to browse or drag and drop your images.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Files Mode</h3>
+          <div class="help-text">
+            <p>Select one or more individual image files. Supports:</p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>PNG, JPG/JPEG, WebP, and AVIF formats</li>
+              <li>Multiple file selection (hold Ctrl/Cmd to select multiple)</li>
+              <li>Drag and drop from your file manager</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Folder Mode</h3>
+          <div class="help-text">
+            <p>Select an entire folder to process all images inside. Pulp will automatically find all supported image files and ignore non-image files.</p>
+          </div>
+          <div class="help-card help-card-info">
+            <h4 class="help-card-title">Browser Permission</h4>
+            <div class="help-card-text">
+              When using folder mode in a browser, you may see a permission prompt. This is normal browser security — Pulp only accesses the folder you select.
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">File List Preview</h3>
+          <div class="help-text">
+            <p>After selecting files, you'll see a summary showing how many image files were found. Click "Show files" to see the complete list with file sizes. Non-image files are automatically ignored but you can view them by clicking "Show ignored files".</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Output Directory -->
+      <section class="help-section" id="output-directory">
+        <h2 class="help-section-title">Output Directory</h2>
+        
+        <div class="help-text">
+          <p>By default, processed images are saved to a timestamped folder in your home directory:</p>
+          <p><code>~/pulp-image-results/2026-01-07_14-30-45/</code></p>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">Why a New Folder Each Time?</h4>
+          <div class="help-card-text">
+            Each processing session gets its own folder to keep your results organized and prevent accidental overwrites. Your original files are never modified.
+          </div>
+        </div>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Custom Output Directory</h3>
+          <div class="help-text">
+            <p>To use a custom location, expand "Advanced output options" and enable "Use custom output directory". You can then type any path — use <code>~</code> for your home directory.</p>
+          </div>
+        </div>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Open Results Folder</h3>
+          <div class="help-text">
+            <p>After processing, click "Open results folder" to quickly navigate to your processed images in your file manager.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Output Format -->
+      <section class="help-section" id="output-format">
+        <h2 class="help-section-title">Output Format</h2>
+        
+        <div class="ui-screenshot">
+          <div class="ui-screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="ui-screenshot-body">
+            <div class="ui-screenshot-placeholder">
+              <div class="placeholder-icon">🔄</div>
+              <span class="placeholder-title">Format Selection</span>
+              <span class="placeholder-desc">Choose your output format from the dropdown. Each format shows its key characteristics.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-text">
+          <p>Choose the output format from the dropdown. Each format has different properties:</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Format</th>
+              <th>Best For</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Keep original</strong></td>
+              <td>Resizing without changing format</td>
+              <td>Only applies resizing and quality changes</td>
+            </tr>
+            <tr>
+              <td><strong>PNG</strong></td>
+              <td>Graphics, logos, screenshots</td>
+              <td>Lossless, supports transparency</td>
+            </tr>
+            <tr>
+              <td><strong>JPG</strong></td>
+              <td>Photos, images without transparency</td>
+              <td>Lossy compression, no transparency</td>
+            </tr>
+            <tr>
+              <td><strong>WebP</strong></td>
+              <td>Web images, modern apps</td>
+              <td>Great compression, supports transparency</td>
+            </tr>
+            <tr>
+              <td><strong>AVIF</strong></td>
+              <td>Maximum compression</td>
+              <td>Best compression, modern browsers only</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Dimensions -->
+      <section class="help-section" id="dimensions">
+        <h2 class="help-section-title">Dimensions (Width & Height)</h2>
+        
+        <div class="ui-screenshot">
+          <div class="ui-screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="ui-screenshot-body">
+            <div class="ui-screenshot-placeholder">
+              <div class="placeholder-icon">📐</div>
+              <span class="placeholder-title">Dimension Controls</span>
+              <span class="placeholder-desc">Width and height inputs side by side. Leave one empty to preserve aspect ratio.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-text">
+          <p>Resize images by specifying width, height, or both in pixels.</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Setting</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Width only</strong></td>
+              <td>Resizes to specified width, height adjusts automatically to preserve aspect ratio</td>
+            </tr>
+            <tr>
+              <td><strong>Height only</strong></td>
+              <td>Resizes to specified height, width adjusts automatically to preserve aspect ratio</td>
+            </tr>
+            <tr>
+              <td><strong>Both</strong></td>
+              <td>Resizes to exact dimensions (may crop if aspect ratios differ)</td>
+            </tr>
+            <tr>
+              <td><strong>Neither</strong></td>
+              <td>Keeps original dimensions (useful for format/quality changes only)</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">Tip: Creating Thumbnails</h4>
+          <div class="help-card-text">
+            To create thumbnails, just set a width (e.g., 200 or 400). The height will adjust automatically so your images don't look stretched.
+          </div>
+        </div>
+      </section>
+
+      <!-- Quality -->
+      <section class="help-section" id="quality">
+        <h2 class="help-section-title">Quality Slider</h2>
+        
+        <div class="ui-screenshot">
+          <div class="ui-screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="ui-screenshot-body">
+            <div class="ui-screenshot-placeholder">
+              <div class="placeholder-icon">⚙️</div>
+              <span class="placeholder-title">Quality Control</span>
+              <span class="placeholder-desc">Drag the slider to adjust quality from 1-100. The current value is displayed next to the label.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-text">
+          <p>The quality slider controls compression for lossy formats (JPG, WebP, AVIF). Higher quality means better-looking images but larger file sizes.</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Quality Range</th>
+              <th>Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>90-100</strong></td>
+              <td>Near-lossless, barely noticeable compression. Good for important photos.</td>
+            </tr>
+            <tr>
+              <td><strong>75-89</strong></td>
+              <td>Good balance of quality and size. Recommended for most uses.</td>
+            </tr>
+            <tr>
+              <td><strong>50-74</strong></td>
+              <td>Noticeable compression but still usable. Good for thumbnails or previews.</td>
+            </tr>
+            <tr>
+              <td><strong>Below 50</strong></td>
+              <td>Heavy compression. Only for maximum file size reduction.</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="help-card help-card-info">
+          <h4 class="help-card-title">When Quality is Disabled</h4>
+          <div class="help-card-text">
+            The quality slider is disabled for PNG (always lossless) and when "Lossless Compression" is enabled (WebP/AVIF). In these cases, there's no quality vs. size tradeoff.
+          </div>
+        </div>
+      </section>
+
+      <!-- Lossless Compression -->
+      <section class="help-section" id="lossless">
+        <h2 class="help-section-title">Lossless Compression</h2>
+        
+        <div class="help-text">
+          <p>When enabled, images are compressed without any quality loss. The file will be smaller than the original but visually identical.</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Format</th>
+              <th>Lossless Support</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>PNG</strong></td>
+              <td>Always lossless (toggle has no effect)</td>
+            </tr>
+            <tr>
+              <td><strong>JPG</strong></td>
+              <td>Does not support lossless (toggle disabled)</td>
+            </tr>
+            <tr>
+              <td><strong>WebP</strong></td>
+              <td>Supports lossless when enabled</td>
+            </tr>
+            <tr>
+              <td><strong>AVIF</strong></td>
+              <td>Supports lossless when enabled</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">When to Use Lossless</h4>
+          <div class="help-card-text">
+            Use lossless compression when you need pixel-perfect output — such as screenshots, graphics with text, or images that will be edited further.
+          </div>
+        </div>
+      </section>
+
+      <!-- Alpha Handling -->
+      <section class="help-section" id="alpha">
+        <h2 class="help-section-title">Alpha (Transparency) Handling</h2>
+        
+        <div class="help-text">
+          <p>When converting images with transparent areas to formats that don't support transparency (JPG), you have two options:</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Mode</th>
+              <th>Behavior</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Flatten</strong></td>
+              <td>Transparent areas are filled with the background color. This is the default and usually what you want.</td>
+            </tr>
+            <tr>
+              <td><strong>Error</strong></td>
+              <td>Processing fails if the image has any transparency. Useful if you want to ensure all input images are already opaque.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Background Color -->
+      <section class="help-section" id="background">
+        <h2 class="help-section-title">Background Color</h2>
+        
+        <div class="ui-screenshot">
+          <div class="ui-screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="ui-screenshot-body">
+            <div class="ui-screenshot-placeholder">
+              <div class="placeholder-icon">🎨</div>
+              <span class="placeholder-title">Color Picker</span>
+              <span class="placeholder-desc">Click the color swatch to open a color picker, or view the hex code in the text field.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-text">
+          <p>When transparency is flattened, this is the color used to fill transparent areas. Click the color swatch to pick a color visually.</p>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">Common Use Cases</h4>
+          <div class="help-card-text">
+            <ul style="margin: 0; padding-left: 1.25rem;">
+              <li><strong>White (#ffffff)</strong> — Standard for documents and light interfaces</li>
+              <li><strong>Black (#000000)</strong> — Good for dark mode interfaces</li>
+              <li><strong>Brand color</strong> — Match your website or app background</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rename Pattern -->
+      <section class="help-section" id="rename-pattern">
+        <h2 class="help-section-title">Rename Pattern</h2>
+        
+        <div class="ui-screenshot">
+          <div class="ui-screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="ui-screenshot-body">
+            <div class="ui-screenshot-placeholder">
+              <div class="placeholder-icon">✏️</div>
+              <span class="placeholder-title">Rename Pattern Input</span>
+              <span class="placeholder-desc">Type a pattern using tokens like {name}, {ext}, and {index}. A live preview shows what the first output file will be named.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-text">
+          <p>Use a rename pattern to customize output filenames. The pattern uses tokens that are replaced with actual values:</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Replaced With</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>{name}</code></td>
+              <td>Original filename (without extension)</td>
+            </tr>
+            <tr>
+              <td><code>{ext}</code></td>
+              <td>Output file extension (e.g., webp, jpg)</td>
+            </tr>
+            <tr>
+              <td><code>{index}</code></td>
+              <td>Sequential number starting from 1</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Examples</h3>
+          <table class="command-table">
+            <thead>
+              <tr>
+                <th>Pattern</th>
+                <th>Input</th>
+                <th>Output</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>{name}-optimized.{ext}</code></td>
+                <td>photo.png</td>
+                <td>photo-optimized.webp</td>
+              </tr>
+              <tr>
+                <td><code>{index}-{name}.{ext}</code></td>
+                <td>cat.png, dog.png</td>
+                <td>1-cat.webp, 2-dog.webp</td>
+              </tr>
+              <tr>
+                <td><code>image-{index}.{ext}</code></td>
+                <td>anything.png</td>
+                <td>image-1.webp</td>
+              </tr>
+              <tr>
+                <td><code>thumb-{name}.{ext}</code></td>
+                <td>banner.jpg</td>
+                <td>thumb-banner.webp</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Auto Suffix -->
+      <section class="help-section" id="auto-suffix">
+        <h2 class="help-section-title">Auto Suffix</h2>
+        
+        <div class="help-text">
+          <p>When enabled, automatically adds the output dimensions to the filename. This is useful when creating multiple sizes of the same image.</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Dimension Settings</th>
+              <th>Suffix Added</th>
+              <th>Example Output</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Width only (800)</td>
+              <td><code>-800w</code></td>
+              <td>photo-800w.webp</td>
+            </tr>
+            <tr>
+              <td>Height only (600)</td>
+              <td><code>-600h</code></td>
+              <td>photo-600h.webp</td>
+            </tr>
+            <tr>
+              <td>Both (800 × 600)</td>
+              <td><code>-800x600</code></td>
+              <td>photo-800x600.webp</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Overwrite -->
+      <section class="help-section" id="overwrite">
+        <h2 class="help-section-title">Overwrite Existing Files</h2>
+        
+        <div class="help-text">
+          <p>By default, if an output file already exists, it will be skipped. Enable this option to replace existing files.</p>
+        </div>
+        
+        <div class="help-card help-card-warning">
+          <h4 class="help-card-title">⚠️ Warning</h4>
+          <div class="help-card-text">
+            When overwrite is enabled, existing files in the output directory will be permanently replaced. Make sure this is what you want before processing.
+          </div>
+        </div>
+      </section>
+
+      <!-- Processing Results -->
+      <section class="help-section" id="processing-results">
+        <h2 class="help-section-title">Processing Results</h2>
+        
+        <div class="ui-screenshot">
+          <div class="ui-screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="ui-screenshot-body">
+            <div class="ui-screenshot-placeholder">
+              <div class="placeholder-icon">📊</div>
+              <span class="placeholder-title">Results Summary</span>
+              <span class="placeholder-desc">After processing, see detailed statistics for each file: original size, final size, and bytes saved. The summary shows total savings across all files.</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="help-text">
+          <p>After processing, you'll see results for each file:</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Original</strong></td>
+              <td>Original file size and dimensions (e.g., "4.2 MB (3000×2000)")</td>
+            </tr>
+            <tr>
+              <td><strong>Final</strong></td>
+              <td>Output file size after processing</td>
+            </tr>
+            <tr>
+              <td><strong>Saved</strong></td>
+              <td>Bytes saved and percentage reduction (e.g., "3.3 MB (79%)")</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Result Types</h3>
+          <table class="command-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span style="color: var(--success);">✓ Processed</span></td>
+                <td>File was successfully processed and saved</td>
+              </tr>
+              <tr>
+                <td><span style="color: var(--warning);">⚠ Skipped</span></td>
+                <td>File was skipped (e.g., output already exists)</td>
+              </tr>
+              <tr>
+                <td><span style="color: var(--danger);">✗ Failed</span></td>
+                <td>An error occurred processing this file</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CLI vs UI -->
+      <section class="help-section" id="ui-vs-cli">
+        <h2 class="help-section-title">UI vs CLI: When to Use Which</h2>
+        
+        <div class="help-text">
+          <p>Both the UI and CLI can do the same image processing. Here's when to choose each:</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Use UI When...</th>
+              <th>Use CLI When...</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>You're new to Pulp Image</td>
+              <td>You're comfortable with the terminal</td>
+            </tr>
+            <tr>
+              <td>You want visual feedback</td>
+              <td>You need to automate processing</td>
+            </tr>
+            <tr>
+              <td>You're processing occasional batches</td>
+              <td>You're integrating into scripts or CI/CD</td>
+            </tr>
+            <tr>
+              <td>You want to see options and previews</td>
+              <td>You need the <code>--delete-original</code> option</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="help-card help-card-info">
+          <h4 class="help-card-title">Delete Original Files</h4>
+          <div class="help-card-text">
+            Due to browser security restrictions, the UI cannot delete original files after processing. If you need this feature, use the CLI with the <code>--delete-original</code> flag.
+          </div>
+        </div>
+      </section>
+
+      <!-- Tips -->
+      <section class="help-section" id="tips">
+        <h2 class="help-section-title">Tips & Best Practices</h2>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">🖼️ For Web Images</h4>
+          <div class="help-card-text">
+            Use WebP format with quality 80-85. This gives excellent compression while maintaining quality. Most modern browsers support WebP.
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">📱 For Responsive Images</h4>
+          <div class="help-card-text">
+            Process the same images multiple times with different widths (400, 800, 1200) and enable Auto Suffix. This creates a set of responsive images for different screen sizes.
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">🎨 For Graphics & Logos</h4>
+          <div class="help-card-text">
+            Use PNG (lossless) to preserve sharp edges and text. For modern web, WebP with lossless compression is even better.
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">📷 For Photos</h4>
+          <div class="help-card-text">
+            JPG at quality 85-90 or WebP at quality 80-85 provides the best file size reduction while keeping photos looking great.
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">🗂️ For Archives</h4>
+          <div class="help-card-text">
+            AVIF at quality 40-50 gives maximum compression. Perfect for archiving large photo collections where file size matters more than instant compatibility.
+          </div>
+        </div>
+      </section>
+
+      <!-- Troubleshooting -->
+      <section class="help-section" id="troubleshooting">
+        <h2 class="help-section-title">Troubleshooting</h2>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">"No files selected"</h4>
+          <div class="help-card-text">
+            Make sure you've clicked the file input and selected at least one image file. Only PNG, JPG, WebP, and AVIF files are supported.
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">"Output directory not set"</h4>
+          <div class="help-card-text">
+            Wait a moment for the default output path to be generated, or enable "Use custom output directory" and specify a path manually.
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">"Image contains transparency" error</h4>
+          <div class="help-card-text">
+            You're converting to JPG with Alpha Mode set to "Error". Either switch to "Flatten" mode (and set a background color) or choose a format that supports transparency (PNG, WebP, AVIF).
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">"Can't open results folder"</h4>
+          <div class="help-card-text">
+            On some systems, the browser can't open the file manager directly. The path is shown so you can navigate there manually.
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">Processing seems slow</h4>
+          <div class="help-card-text">
+            Large images or batch processing many files takes time. AVIF encoding is especially intensive. For very large batches, consider using the CLI which may be faster for automation.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer (loaded from components.js) -->
+  <div id="footer-placeholder"></div>
+
+  <script src="components.js"></script>
+  <script src="app.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>
+

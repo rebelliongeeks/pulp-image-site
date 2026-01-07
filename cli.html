@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLI Reference — Pulp Image</title>
+  <meta name="description" content="Complete command-line reference for Pulp Image CLI. All commands, options, and examples for image processing from your terminal.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="help-page">
+  <!-- Navigation (loaded from components.js) -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Hero -->
+  <header class="help-hero">
+    <div class="help-hero-container">
+      <span class="section-badge section-badge-dark">Command Line</span>
+      <h1 class="help-hero-title">CLI Reference</h1>
+      <p class="help-hero-desc">Complete documentation for the Pulp Image command-line interface. Copy any command with a single click.</p>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="help-content">
+    <div class="help-container">
+      
+      <!-- Installation -->
+      <section class="help-section" id="installation">
+        <h2 class="help-section-title">Installation</h2>
+        
+        <div class="help-text">
+          <p>Pulp Image CLI requires Node.js 18 or higher. Install globally via npm to make the <code>pulp</code> command available anywhere:</p>
+        </div>
+        
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Install globally</span>
+          </div>
+          <div class="terminal-example-body" data-copy="npm install -g pulp-image">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> npm install -g pulp-image</pre>
+          </div>
+        </div>
+        
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Verify installation</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp --version">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp --version
+<span class="output">0.1.4</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Basic Usage -->
+      <section class="help-section" id="basic-usage">
+        <h2 class="help-section-title">Basic Usage</h2>
+        
+        <div class="help-text">
+          <p>The basic syntax for Pulp is:</p>
+        </div>
+        
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Command syntax</span>
+          </div>
+          <div class="terminal-example-body">
+            <pre>pulp <span class="value">[input]</span> <span class="flag">[options]</span>
+
+<span class="comment"># input: A file path or directory path</span>
+<span class="comment"># options: Various flags to control processing</span></pre>
+          </div>
+        </div>
+        
+        <div class="help-card">
+          <h4 class="help-card-title">Quick Examples</h4>
+          <div class="help-card-text">
+            <code>pulp image.png --format webp</code> — Convert to WebP<br>
+            <code>pulp image.png --width 800</code> — Resize to 800px wide<br>
+            <code>pulp ./images --format avif --out ./output</code> — Batch convert a folder
+          </div>
+        </div>
+      </section>
+
+      <!-- All Options Reference -->
+      <section class="help-section" id="all-options">
+        <h2 class="help-section-title">All Options</h2>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Description</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>-w, --width &lt;number&gt;</code></td>
+              <td>Output width in pixels. Aspect ratio is preserved if height is not specified.</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>-h, --height &lt;number&gt;</code></td>
+              <td>Output height in pixels. Aspect ratio is preserved if width is not specified.</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>-f, --format &lt;format&gt;</code></td>
+              <td>Output format: <code>png</code>, <code>jpg</code>, <code>webp</code>, or <code>avif</code></td>
+              <td>Same as input</td>
+            </tr>
+            <tr>
+              <td><code>-o, --out &lt;dir&gt;</code></td>
+              <td>Output directory. Created automatically if it doesn't exist.</td>
+              <td><code>./pulp-image-results</code></td>
+            </tr>
+            <tr>
+              <td><code>--quality &lt;number&gt;</code></td>
+              <td>Quality for lossy formats (1-100). Higher = better quality, larger file.</td>
+              <td>JPG: 80, WebP: 80, AVIF: 50</td>
+            </tr>
+            <tr>
+              <td><code>--lossless</code></td>
+              <td>Use lossless compression for WebP and AVIF. PNG is always lossless.</td>
+              <td>Off (lossy)</td>
+            </tr>
+            <tr>
+              <td><code>--suffix &lt;text&gt;</code></td>
+              <td>Custom suffix added before file extension. E.g., "optimized" → <code>image-optimized.png</code></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>--auto-suffix</code></td>
+              <td>Automatically add size-based suffix: <code>-800w</code>, <code>-600h</code>, or <code>-800x600</code></td>
+              <td>Off</td>
+            </tr>
+            <tr>
+              <td><code>--background &lt;color&gt;</code></td>
+              <td>Background color (hex) for transparency flattening when converting to JPG.</td>
+              <td><code>#ffffff</code></td>
+            </tr>
+            <tr>
+              <td><code>--alpha-mode &lt;mode&gt;</code></td>
+              <td>How to handle transparency: <code>flatten</code> (composite onto background) or <code>error</code> (fail if present)</td>
+              <td><code>flatten</code></td>
+            </tr>
+            <tr>
+              <td><code>--overwrite</code></td>
+              <td>Overwrite existing output files. By default, existing files are skipped.</td>
+              <td>Off (skip)</td>
+            </tr>
+            <tr>
+              <td><code>--delete-original</code></td>
+              <td>Delete original files after successful processing. Only works if input/output paths differ.</td>
+              <td>Off</td>
+            </tr>
+            <tr>
+              <td><code>-v, --verbose</code></td>
+              <td>Show detailed per-file processing information.</td>
+              <td>Off</td>
+            </tr>
+            <tr>
+              <td><code>--version</code></td>
+              <td>Display version number.</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>--help</code></td>
+              <td>Display help information.</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Resize Examples -->
+      <section class="help-section" id="resize">
+        <h2 class="help-section-title">Resize Images</h2>
+        
+        <div class="help-text">
+          <p>Resize images by specifying width, height, or both. When only one dimension is provided, aspect ratio is automatically preserved.</p>
+        </div>
+        
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Resize by width (preserves aspect ratio)</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp photo.png --width 800">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp photo.png <span class="flag">--width</span> <span class="value">800</span>
+
+<span class="success">✓ Processed:</span> pulp-image-results/photo.png
+  Original: 4.2 MB (3000x2000)
+  Final:    892 KB
+  Saved:    3.32 MB (79%)</pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Resize by height (preserves aspect ratio)</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp photo.png --height 600">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp photo.png <span class="flag">--height</span> <span class="value">600</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Resize to exact dimensions</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp photo.png --width 800 --height 600">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp photo.png <span class="flag">--width</span> <span class="value">800</span> <span class="flag">--height</span> <span class="value">600</span>
+
+<span class="comment"># Output will be exactly 800x600, cropping if needed</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Resize with auto-suffix (adds size to filename)</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp photo.png --width 800 --auto-suffix">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp photo.png <span class="flag">--width</span> <span class="value">800</span> <span class="flag">--auto-suffix</span>
+
+<span class="comment"># Output: photo-800w.png</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Format Conversion -->
+      <section class="help-section" id="format-conversion">
+        <h2 class="help-section-title">Format Conversion</h2>
+        
+        <div class="help-text">
+          <p>Convert between PNG, JPG, WebP, and AVIF formats. Each format has different characteristics:</p>
+        </div>
+        
+        <table class="command-table">
+          <thead>
+            <tr>
+              <th>Format</th>
+              <th>Transparency</th>
+              <th>Compression</th>
+              <th>Default Quality</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>png</code></td>
+              <td>✓ Yes</td>
+              <td>Always lossless</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><code>jpg</code></td>
+              <td>✗ No</td>
+              <td>Always lossy</td>
+              <td>80</td>
+            </tr>
+            <tr>
+              <td><code>webp</code></td>
+              <td>✓ Yes</td>
+              <td>Lossy or lossless</td>
+              <td>80</td>
+            </tr>
+            <tr>
+              <td><code>avif</code></td>
+              <td>✓ Yes</td>
+              <td>Lossy or lossless</td>
+              <td>50</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Convert PNG to WebP (preserves transparency)</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp image.png --format webp">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp image.png <span class="flag">--format</span> <span class="value">webp</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Convert to JPG with custom background color</span>
+          </div>
+          <div class="terminal-example-body" data-copy='pulp image.png --format jpg --background "#ff6b35"'>
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp image.png <span class="flag">--format</span> <span class="value">jpg</span> <span class="flag">--background</span> <span class="value">"#ff6b35"</span>
+
+<span class="comment"># Transparent areas become orange (#ff6b35)</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Convert to AVIF with custom quality</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp photo.jpg --format avif --quality 70">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp photo.jpg <span class="flag">--format</span> <span class="value">avif</span> <span class="flag">--quality</span> <span class="value">70</span>
+
+<span class="comment"># Quality 70 = good balance of size and quality</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Lossless WebP conversion</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp image.png --format webp --lossless">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp image.png <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--lossless</span>
+
+<span class="comment"># No quality loss, still smaller than PNG</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">High-quality JPG for photography</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp photo.png --format jpg --quality 95">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp photo.png <span class="flag">--format</span> <span class="value">jpg</span> <span class="flag">--quality</span> <span class="value">95</span>
+
+<span class="comment"># Quality 95 = near-lossless, still good compression</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Batch Processing -->
+      <section class="help-section" id="batch-processing">
+        <h2 class="help-section-title">Batch Processing</h2>
+        
+        <div class="help-text">
+          <p>Process entire directories of images at once. Pulp will find all supported image files (PNG, JPG, WebP, AVIF) in the directory.</p>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Convert all images in a folder to WebP</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp ./images --format webp --out ./output">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp <span class="value">./images</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--out</span> <span class="value">./output</span>
+
+Found 12 image file(s) to process...
+
+<span class="success">✓ Processed:</span> 12 file(s)
+  Total original size: 48.2 MB
+  Total final size:    8.4 MB
+  Total saved:         <span class="highlight">39.8 MB (82.57%)</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Batch resize with auto-suffix</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp ./images --width 800 --auto-suffix --out ./thumbnails">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp <span class="value">./images</span> <span class="flag">--width</span> <span class="value">800</span> <span class="flag">--auto-suffix</span> <span class="flag">--out</span> <span class="value">./thumbnails</span>
+
+<span class="comment"># Each file gets a -800w suffix: photo-800w.png</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Batch process with verbose output</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp ./images --format webp --out ./output --verbose">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp <span class="value">./images</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--out</span> <span class="value">./output</span> <span class="flag">--verbose</span>
+
+<span class="comment"># Shows detailed info for each file processed</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Batch process with combined suffix</span>
+          </div>
+          <div class="terminal-example-body" data-copy='pulp ./images --width 800 --auto-suffix --suffix "thumb" --format webp'>
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp <span class="value">./images</span> <span class="flag">--width</span> <span class="value">800</span> <span class="flag">--auto-suffix</span> <span class="flag">--suffix</span> <span class="value">"thumb"</span> <span class="flag">--format</span> <span class="value">webp</span>
+
+<span class="comment"># Output: photo-800w-thumb.webp</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Safety Features -->
+      <section class="help-section" id="safety">
+        <h2 class="help-section-title">Safety Features</h2>
+        
+        <div class="help-text">
+          <p>Pulp is designed to protect your files. By default, nothing is overwritten or deleted.</p>
+        </div>
+
+        <div class="help-card">
+          <h4 class="help-card-title">Default Behavior (Safe)</h4>
+          <div class="help-card-text">
+            <ul style="margin: 0; padding-left: 1.25rem;">
+              <li>Output goes to <code>./pulp-image-results</code> (never overwrites originals)</li>
+              <li>Existing files in output directory are skipped</li>
+              <li>Original files are never deleted</li>
+              <li>Processing continues even if individual files fail</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Enable overwriting existing output files</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp ./images --format webp --out ./output --overwrite">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp <span class="value">./images</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--out</span> <span class="value">./output</span> <span class="flag">--overwrite</span>
+
+<span class="comment"># Replaces existing files in ./output</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Delete originals after processing (use with caution!)</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp ./images --format webp --out ./output --delete-original">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp <span class="value">./images</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--out</span> <span class="value">./output</span> <span class="flag">--delete-original</span>
+
+<span class="comment"># ⚠️ Original files are deleted after successful processing</span>
+<span class="comment"># Only works when output path differs from input path</span></pre>
+          </div>
+        </div>
+
+        <div class="help-card help-card-warning">
+          <h4 class="help-card-title">⚠️ Warning</h4>
+          <div class="help-card-text">
+            The <code>--delete-original</code> flag permanently removes source files. Only use this when you're certain the processed output is correct and you no longer need the originals.
+          </div>
+        </div>
+      </section>
+
+      <!-- Transparency Handling -->
+      <section class="help-section" id="transparency">
+        <h2 class="help-section-title">Transparency Handling</h2>
+        
+        <div class="help-text">
+          <p>When converting to formats that don't support transparency (like JPG), Pulp can either flatten the transparency onto a background color or fail with an error.</p>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Flatten to white background (default)</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp logo.png --format jpg">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp logo.png <span class="flag">--format</span> <span class="value">jpg</span>
+
+<span class="comment"># Transparent areas become white (#ffffff)</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Flatten to custom color</span>
+          </div>
+          <div class="terminal-example-body" data-copy='pulp logo.png --format jpg --background "#1a1b26"'>
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp logo.png <span class="flag">--format</span> <span class="value">jpg</span> <span class="flag">--background</span> <span class="value">"#1a1b26"</span>
+
+<span class="comment"># Transparent areas become dark blue (#1a1b26)</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Fail if image has transparency</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp logo.png --format jpg --alpha-mode error">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp logo.png <span class="flag">--format</span> <span class="value">jpg</span> <span class="flag">--alpha-mode</span> <span class="value">error</span>
+
+<span class="comment"># Exits with error if transparency is detected</span></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-World Examples -->
+      <section class="help-section" id="real-world-examples">
+        <h2 class="help-section-title">Real-World Examples</h2>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Web Optimization Workflow</h3>
+          <div class="terminal-example">
+            <div class="terminal-example-header">
+              <span class="terminal-example-title">Create optimized WebP versions for web</span>
+            </div>
+            <div class="terminal-example-body" data-copy="pulp ./assets --format webp --quality 85 --out ./public/images">
+              <button class="terminal-example-copy">Copy</button>
+              <pre><span class="cmd">$</span> pulp <span class="value">./assets</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--quality</span> <span class="value">85</span> <span class="flag">--out</span> <span class="value">./public/images</span>
+
+<span class="comment"># Great for web deployment - modern format with transparency</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Generate Responsive Image Sizes</h3>
+          <div class="terminal-example">
+            <div class="terminal-example-header">
+              <span class="terminal-example-title">Create multiple sizes for responsive images</span>
+            </div>
+            <div class="terminal-example-body">
+              <pre><span class="comment"># Run multiple times with different widths:</span>
+<span class="cmd">$</span> pulp <span class="value">./photos</span> <span class="flag">--width</span> <span class="value">400</span> <span class="flag">--auto-suffix</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--out</span> <span class="value">./responsive</span>
+<span class="cmd">$</span> pulp <span class="value">./photos</span> <span class="flag">--width</span> <span class="value">800</span> <span class="flag">--auto-suffix</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--out</span> <span class="value">./responsive</span>
+<span class="cmd">$</span> pulp <span class="value">./photos</span> <span class="flag">--width</span> <span class="value">1200</span> <span class="flag">--auto-suffix</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--out</span> <span class="value">./responsive</span>
+
+<span class="comment"># Creates: photo-400w.webp, photo-800w.webp, photo-1200w.webp</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Social Media Images</h3>
+          <div class="terminal-example">
+            <div class="terminal-example-header">
+              <span class="terminal-example-title">Optimize for social sharing (flatten transparency)</span>
+            </div>
+            <div class="terminal-example-body" data-copy='pulp cover.png --format jpg --quality 90 --width 1200 --height 630 --background "#ffffff"'>
+              <button class="terminal-example-copy">Copy</button>
+              <pre><span class="cmd">$</span> pulp cover.png <span class="flag">--format</span> <span class="value">jpg</span> <span class="flag">--quality</span> <span class="value">90</span> \
+    <span class="flag">--width</span> <span class="value">1200</span> <span class="flag">--height</span> <span class="value">630</span> \
+    <span class="flag">--background</span> <span class="value">"#ffffff"</span>
+
+<span class="comment"># Perfect dimensions for Open Graph/Twitter cards</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">CI/CD Pipeline</h3>
+          <div class="terminal-example">
+            <div class="terminal-example-header">
+              <span class="terminal-example-title">Optimize images during build</span>
+            </div>
+            <div class="terminal-example-body">
+              <pre><span class="comment"># In your CI/CD script or package.json:</span>
+<span class="cmd">$</span> pulp <span class="value">./src/images</span> <span class="flag">--format</span> <span class="value">webp</span> <span class="flag">--quality</span> <span class="value">80</span> \
+    <span class="flag">--out</span> <span class="value">./dist/images</span> <span class="flag">--overwrite</span>
+
+<span class="comment"># Overwrites on each build for fresh output</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Archive Compression</h3>
+          <div class="terminal-example">
+            <div class="terminal-example-header">
+              <span class="terminal-example-title">Maximum compression for archival</span>
+            </div>
+            <div class="terminal-example-body" data-copy="pulp ./archive --format avif --quality 40 --out ./compressed">
+              <button class="terminal-example-copy">Copy</button>
+              <pre><span class="cmd">$</span> pulp <span class="value">./archive</span> <span class="flag">--format</span> <span class="value">avif</span> <span class="flag">--quality</span> <span class="value">40</span> <span class="flag">--out</span> <span class="value">./compressed</span>
+
+<span class="comment"># AVIF at quality 40 = excellent compression with acceptable quality</span></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Browser UI -->
+      <section class="help-section" id="browser-ui-mode">
+        <h2 class="help-section-title">Browser UI Mode</h2>
+        
+        <div class="help-text">
+          <p>Pulp includes a browser-based interface for those who prefer a visual approach:</p>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Start the browser UI</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp ui">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp ui
+
+<span class="output">Starting Pulp Image UI...
+Server running at http://localhost:3000
+Press Ctrl+C to stop</span></pre>
+          </div>
+        </div>
+
+        <div class="terminal-example">
+          <div class="terminal-example-header">
+            <span class="terminal-example-title">Start on a custom port</span>
+          </div>
+          <div class="terminal-example-body" data-copy="pulp ui --port 8080">
+            <button class="terminal-example-copy">Copy</button>
+            <pre><span class="cmd">$</span> pulp ui <span class="flag">--port</span> <span class="value">8080</span>
+
+<span class="output">Starting Pulp Image UI...
+Server running at http://localhost:8080</span></pre>
+          </div>
+        </div>
+
+        <div class="help-card help-card-info">
+          <h4 class="help-card-title">ℹ️ Note</h4>
+          <div class="help-card-text">
+            The browser UI provides the same features as the CLI but with a visual interface. Processing happens locally on your machine — no files are uploaded to the internet.
+          </div>
+        </div>
+      </section>
+
+      <!-- Troubleshooting -->
+      <section class="help-section" id="troubleshooting">
+        <h2 class="help-section-title">Troubleshooting</h2>
+        
+        <div class="help-subsection">
+          <h3 class="help-subsection-title">Common Errors</h3>
+          
+          <div class="help-card">
+            <h4 class="help-card-title">"Input not found"</h4>
+            <div class="help-card-text">
+              The specified file or directory doesn't exist. Check the path is correct and the file exists.
+            </div>
+          </div>
+          
+          <div class="help-card">
+            <h4 class="help-card-title">"Output file already exists"</h4>
+            <div class="help-card-text">
+              Use <code>--overwrite</code> to replace existing files, or use a different output directory.
+            </div>
+          </div>
+          
+          <div class="help-card">
+            <h4 class="help-card-title">"Image contains transparency"</h4>
+            <div class="help-card-text">
+              When converting to JPG with <code>--alpha-mode error</code>, this means the source has transparency. Either use <code>--alpha-mode flatten</code> with a <code>--background</code> color, or choose a format that supports transparency (PNG, WebP, AVIF).
+            </div>
+          </div>
+          
+          <div class="help-card">
+            <h4 class="help-card-title">"Cannot delete original: same as output"</h4>
+            <div class="help-card-text">
+              The <code>--delete-original</code> flag only works when the output path differs from the input path. Use <code>--out</code> to specify a different output directory.
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer (loaded from components.js) -->
+  <div id="footer-placeholder"></div>
+
+  <script src="components.js"></script>
+  <script src="app.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>
+

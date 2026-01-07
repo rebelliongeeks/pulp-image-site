@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulp Image — Squeeze Every Byte from Your Images</title>
+  <meta name="description" content="A powerful, safety-first CLI and portable UI for processing images with resize, format conversion, and optimization. Made in Cyprus with love.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation (loaded from components.js) -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-bg">
+      <div class="hero-blob hero-blob-1"></div>
+      <div class="hero-blob hero-blob-2"></div>
+      <div class="hero-blob hero-blob-3"></div>
+    </div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-icon">🍊</span>
+          <span>Open Source • MIT License</span>
+        </div>
+        <h1 class="hero-title">
+          Squeeze every byte<br>
+          <span class="hero-title-accent">from your images</span>
+        </h1>
+        <p class="hero-subtitle">
+          A powerful, safety-first tool for resizing, converting, and optimizing images. 
+          Use the browser-based UI or the lightning-fast CLI.
+          <span class="hero-subtitle-highlight">Your originals stay safe.</span>
+        </p>
+        
+        <!-- Install Options -->
+        <div class="hero-install">
+          <!-- CLI Install -->
+          <div class="install-option">
+            <span class="install-label">Install CLI via npm</span>
+            <div class="install-command" data-copy="npm install -g pulp-image">
+              <code>npm install -g pulp-image</code>
+              <button class="copy-btn" aria-label="Copy to clipboard">
+                <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                </svg>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Portable UI Download -->
+          <div class="install-option install-option-primary">
+            <span class="install-label">Or download the portable UI (no install needed)</span>
+            <div class="download-wrapper">
+              <button class="download-btn" id="download-btn">
+                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span class="download-text">
+                  Download for <span id="os-name">your system</span>
+                </span>
+              </button>
+              <div class="download-dropdown">
+                <button class="dropdown-toggle" id="dropdown-toggle" aria-label="Select different operating system">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </button>
+                <div class="dropdown-menu" id="dropdown-menu">
+                  <a href="#" class="dropdown-item" data-os="windows">
+                    <svg class="os-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.949"/>
+                    </svg>
+                    Windows
+                  </a>
+                  <a href="#" class="dropdown-item" data-os="macos">
+                    <svg class="os-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    macOS
+                  </a>
+                  <a href="#" class="dropdown-item" data-os="linux">
+                    <svg class="os-icon" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489.117.779.454 1.509 1.041 2.088.667.657 1.537.98 2.427 1.073.78.082 1.59.009 2.338-.235.17-.056.337-.12.5-.19.247.042.508.063.776.063.442 0 .877-.049 1.293-.144.21.092.427.173.648.241.813.248 1.695.322 2.54.235.986-.102 1.936-.467 2.63-1.175.576-.588.908-1.333 1.019-2.13.116-.83-.021-1.7-.317-2.54-.61-1.785-1.869-3.49-2.768-4.548-.758-1.077-.985-1.945-1.06-3.044-.063-1.493 1.063-5.983-3.16-6.299-.176-.015-.348-.024-.526-.024h-.025zM12.5 1.5c.124 0 .252.006.384.018 2.21.175 2.083 2.626 2.034 4.19-.032 1.025.127 2.088.742 3.225l.095.174c.889 1.04 2.067 2.625 2.575 4.12.248.726.348 1.434.269 2.068-.08.611-.326 1.143-.703 1.534-.454.469-1.086.72-1.772.803-.62.075-1.284.022-1.908-.172a4.79 4.79 0 01-.492-.178 4.69 4.69 0 01-1.724.313c-.205 0-.407-.017-.602-.05a4.03 4.03 0 01-.423.16c-.557.178-1.152.238-1.718.169-.656-.08-1.278-.325-1.723-.774-.414-.418-.662-.926-.747-1.489-.095-.627.018-1.312.27-2.025.502-1.453 1.663-3.078 2.54-4.111l.096-.173c.622-1.137.781-2.2.75-3.227-.048-1.566-.175-4.01 2.04-4.189.134-.012.262-.018.388-.018l.062.001z"/>
+                    </svg>
+                    Linux
+                  </a>
+                </div>
+              </div>
+            </div>
+            <span class="install-note">Runs in your browser.</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Hero Screenshot -->
+      <div class="hero-screenshot">
+        <div class="screenshot-frame">
+          <div class="screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+            <span class="screenshot-title">Pulp Image</span>
+          </div>
+          <div class="screenshot-body">
+            <div class="screenshot-placeholder">
+              <div class="placeholder-icon">🖼️</div>
+              <span class="placeholder-title">UI Screenshot</span>
+              <span class="placeholder-desc">Select your images, configure options, and watch Pulp squeeze every byte — all in your browser.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="features-container">
+      <div class="section-header">
+        <span class="section-badge">Features</span>
+        <h2 class="section-title">Everything you need to optimize images</h2>
+        <p class="section-subtitle">Whether you're a designer compressing assets, a developer integrating into build scripts, or just someone who wants smaller image files — Pulp has you covered.</p>
+      </div>
+      
+      <div class="features-grid">
+        <!-- Feature: Resize with aspect ratio -->
+        <div class="feature-card">
+          <div class="feature-icon">📐</div>
+          <h3 class="feature-title">Resize with Aspect Ratio</h3>
+          <p class="feature-desc">Resize by width, height, or exact dimensions. Aspect ratio is preserved by default when you specify only one dimension.</p>
+        </div>
+        
+        <!-- Feature: Format Conversion -->
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3 class="feature-title">Format Conversion</h3>
+          <p class="feature-desc">Convert between PNG, JPG, WebP, and AVIF. Each format has its own quality and lossless options.</p>
+        </div>
+        
+        <!-- Feature: Batch Processing -->
+        <div class="feature-card">
+          <div class="feature-icon">📁</div>
+          <h3 class="feature-title">Batch Processing</h3>
+          <p class="feature-desc">Process entire directories at once. Pulp finds all supported images (PNG, JPG, WebP, AVIF) and processes them in batch.</p>
+        </div>
+        
+        <!-- Feature: Safety First -->
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3 class="feature-title">Safety First</h3>
+          <p class="feature-desc">Output goes to a separate folder by default. No overwrites unless you explicitly enable them. Your originals stay safe.</p>
+        </div>
+        
+        <!-- Feature: Quality & Lossless -->
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3 class="feature-title">Quality & Lossless Control</h3>
+          <p class="feature-desc">Fine-tune compression with quality settings (1-100) for lossy formats, or use lossless mode for WebP and AVIF.</p>
+        </div>
+        
+        <!-- Feature: Transparency Handling -->
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3 class="feature-title">Transparency Handling</h3>
+          <p class="feature-desc">When converting to JPG, transparent areas are flattened to a background color of your choice (default: white).</p>
+        </div>
+        
+        <!-- Feature: Auto Suffix -->
+        <div class="feature-card">
+          <div class="feature-icon">✏️</div>
+          <h3 class="feature-title">Auto & Custom Suffix</h3>
+          <p class="feature-desc">Automatically add size-based suffixes like -800w or -600h, or add your own custom suffix to output filenames.</p>
+        </div>
+        
+        <!-- Feature: Detailed Stats -->
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">Detailed Statistics</h3>
+          <p class="feature-desc">See original size, final size, bytes saved, and percentage reduction for every file. Batch summaries show total savings.</p>
+        </div>
+        
+        <!-- Feature: Rename Pattern (UI Only) -->
+        <div class="feature-card feature-card-with-badge" data-tooltip="CLI users already have shell tools for flexible renaming that can be piped with Pulp.">
+          <div class="feature-header">
+            <div class="feature-icon">🏷️</div>
+            <span class="feature-badge feature-badge-ui">UI</span>
+          </div>
+          <h3 class="feature-title">Rename Patterns</h3>
+          <p class="feature-desc">Use tokens like {name}, {ext}, {index} to create custom output filenames. Perfect for batch renaming with sequential numbers.</p>
+        </div>
+        
+        <!-- Feature: Delete Original (CLI Only) -->
+        <div class="feature-card feature-card-with-badge" data-tooltip="Browser security prevents file deletion. CLI runs with full filesystem access.">
+          <div class="feature-header">
+            <div class="feature-icon">🗑️</div>
+            <span class="feature-badge feature-badge-cli">CLI</span>
+          </div>
+          <h3 class="feature-title">Delete Originals</h3>
+          <p class="feature-desc">Optionally delete original files after successful processing with --delete-original. Saves disk space in automated workflows.</p>
+        </div>
+        
+        <!-- Feature: Verbose Mode (CLI Only) -->
+        <div class="feature-card feature-card-with-badge" data-tooltip="The UI shows results visually with progress and summaries. CLI uses --verbose for text output.">
+          <div class="feature-header">
+            <div class="feature-icon">📋</div>
+            <span class="feature-badge feature-badge-cli">CLI</span>
+          </div>
+          <h3 class="feature-title">Verbose Output</h3>
+          <p class="feature-desc">Enable verbose mode to see detailed per-file processing info. Perfect for debugging and understanding batch results.</p>
+        </div>
+        
+        <!-- Feature: Overwrite Control -->
+        <div class="feature-card">
+          <div class="feature-icon">⚠️</div>
+          <h3 class="feature-title">Overwrite Control</h3>
+          <p class="feature-desc">By default, existing files are skipped. Enable overwrite mode when you want to replace previously processed outputs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UI Showcase Section -->
+  <section class="showcase showcase-ui">
+    <div class="showcase-container">
+      <div class="showcase-content">
+        <span class="section-badge">Browser UI</span>
+        <h2 class="showcase-title">A beautiful interface for image processing</h2>
+        <p class="showcase-desc">No command line needed. The browser-based UI provides all the same features with a visual interface. Download the portable version or run <code>pulp ui</code> from the CLI.</p>
+        <ul class="showcase-features">
+          <li>
+            <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Select files or entire folders
+          </li>
+          <li>
+            <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Rename patterns with {name}, {ext}, {index} tokens
+          </li>
+          <li>
+            <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Visual quality slider (1-100)
+          </li>
+          <li>
+            <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Results with per-file savings breakdown
+          </li>
+        </ul>
+        <a href="ui.html" class="showcase-link">
+          Explore UI Guide
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+      <div class="showcase-visual">
+        <div class="screenshot-frame screenshot-frame-floating">
+          <div class="screenshot-header">
+            <span class="screenshot-dot screenshot-dot-red"></span>
+            <span class="screenshot-dot screenshot-dot-yellow"></span>
+            <span class="screenshot-dot screenshot-dot-green"></span>
+          </div>
+          <div class="screenshot-body">
+            <div class="screenshot-placeholder">
+              <div class="placeholder-icon">🎛️</div>
+              <span class="placeholder-title">Processing Options</span>
+              <span class="placeholder-desc">Configure format, dimensions, quality, background color, and more with intuitive controls.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLI Showcase Section -->
+  <section class="showcase showcase-cli">
+    <div class="showcase-container showcase-container-reverse">
+      <div class="showcase-content">
+        <span class="section-badge section-badge-dark-on-dark">Command Line</span>
+        <h2 class="showcase-title">Power at your fingertips</h2>
+        <p class="showcase-desc">For developers and automation. The CLI is fast, scriptable, and integrates into your existing workflow.</p>
+        <ul class="showcase-features">
+          <li>
+            <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Process single files or directories
+          </li>
+          <li>
+            <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Verbose mode for detailed output
+          </li>
+          <li>
+            <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            --delete-original option (CLI only)
+          </li>
+          <li>
+            <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Start the UI with <code>pulp ui</code>
+          </li>
+        </ul>
+        <a href="cli.html" class="showcase-link">
+          View CLI Reference
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+      <div class="showcase-visual">
+        <!-- Terminal Animation Placeholder -->
+        <div class="terminal-frame">
+          <div class="terminal-header">
+            <span class="terminal-dot terminal-dot-red"></span>
+            <span class="terminal-dot terminal-dot-yellow"></span>
+            <span class="terminal-dot terminal-dot-green"></span>
+            <span class="terminal-title">Terminal — pulp</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-placeholder">
+              <div class="placeholder-icon terminal-icon">▶</div>
+              <span class="placeholder-title">CLI Demo Animation</span>
+              <span class="placeholder-desc">Watch Pulp process a batch of images with beautiful terminal output.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Examples Section -->
+  <section class="examples">
+    <div class="examples-container">
+      <div class="section-header">
+        <span class="section-badge section-badge-dark">Quick Start</span>
+        <h2 class="section-title">Common use cases</h2>
+        <p class="section-subtitle">Copy these commands to get started in seconds.</p>
+      </div>
+      
+      <div class="examples-grid">
+        <div class="example-card">
+          <h4 class="example-title">Convert PNG to WebP</h4>
+          <p class="example-desc">Modern format with great compression.</p>
+          <div class="terminal-block" data-copy="pulp image.png --format webp">
+            <code><span class="terminal-prompt">$</span> pulp image.png --format webp</code>
+            <button class="copy-btn copy-btn-terminal" aria-label="Copy command">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="example-card">
+          <h4 class="example-title">Resize to 800px width</h4>
+          <p class="example-desc">Height adjusts to preserve aspect ratio.</p>
+          <div class="terminal-block" data-copy="pulp image.png --width 800">
+            <code><span class="terminal-prompt">$</span> pulp image.png --width 800</code>
+            <button class="copy-btn copy-btn-terminal" aria-label="Copy command">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="example-card">
+          <h4 class="example-title">Batch process a folder</h4>
+          <p class="example-desc">Convert all images in a directory.</p>
+          <div class="terminal-block" data-copy="pulp ./images --format webp --out ./output">
+            <code><span class="terminal-prompt">$</span> pulp ./images --format webp --out ./output</code>
+            <button class="copy-btn copy-btn-terminal" aria-label="Copy command">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="example-card">
+          <h4 class="example-title">Convert to AVIF</h4>
+          <p class="example-desc">Best compression for modern browsers.</p>
+          <div class="terminal-block" data-copy="pulp image.png --format avif --quality 70">
+            <code><span class="terminal-prompt">$</span> pulp image.png --format avif --quality 70</code>
+            <button class="copy-btn copy-btn-terminal" aria-label="Copy command">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <h4 class="example-title">Add auto-suffix to filename</h4>
+          <p class="example-desc">Output: image-800w.webp</p>
+          <div class="terminal-block" data-copy="pulp image.png --width 800 --format webp --auto-suffix">
+            <code><span class="terminal-prompt">$</span> pulp image.png --width 800 --format webp --auto-suffix</code>
+            <button class="copy-btn copy-btn-terminal" aria-label="Copy command">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="example-card">
+          <h4 class="example-title">Flatten transparency</h4>
+          <p class="example-desc">Convert PNG with transparency to JPG.</p>
+          <div class="terminal-block" data-copy='pulp image.png --format jpg --background "#ff6b35"'>
+            <code><span class="terminal-prompt">$</span> pulp image.png --format jpg --background "#ff6b35"</code>
+            <button class="copy-btn copy-btn-terminal" aria-label="Copy command">
+              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="examples-cta">
+        <a href="cli.html" class="btn btn-primary">
+          View all CLI commands
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats/Results Preview -->
+  <section class="stats-preview">
+    <div class="stats-container">
+      <div class="stats-content">
+        <span class="section-badge section-badge-dark">Real Results</span>
+        <h2 class="section-title">See exactly how much you save</h2>
+        <p class="stats-desc">Pulp shows you detailed statistics for every image processed — original size, final size, bytes saved, and percentage reduction.</p>
+      </div>
+      <div class="stats-demo">
+        <div class="terminal-frame terminal-frame-stats">
+          <div class="terminal-header">
+            <span class="terminal-dot terminal-dot-red"></span>
+            <span class="terminal-dot terminal-dot-yellow"></span>
+            <span class="terminal-dot terminal-dot-green"></span>
+          </div>
+          <div class="terminal-body terminal-body-stats">
+            <pre class="stats-output"><span class="success">✓ Processed:</span> 7 file(s)
+Total original size: 10.07 MB
+Total final size:    821.78 KB
+Total saved:         <span class="highlight">9.26 MB (92.03%)</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <div class="cta-container">
+      <h2 class="cta-title">Ready to squeeze some bytes?</h2>
+      <p class="cta-desc">Get started in under a minute. Open source and made with care.</p>
+      <div class="cta-buttons">
+        <div class="install-command install-command-cta" data-copy="npm install -g pulp-image">
+          <code>npm install -g pulp-image</code>
+          <button class="copy-btn" aria-label="Copy to clipboard">
+            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+            </svg>
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </button>
+        </div>
+        <span class="cta-or">or</span>
+        <div class="download-wrapper download-wrapper-cta">
+          <button class="download-btn download-btn-cta" id="cta-download-btn">
+            <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span class="download-text">
+              Portable UI for <span id="cta-os-name">your system</span>
+            </span>
+          </button>
+          <div class="download-dropdown">
+            <button class="dropdown-toggle" id="cta-dropdown-toggle" aria-label="Select different operating system">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="dropdown-menu" id="cta-dropdown-menu">
+              <a href="#" class="dropdown-item" data-os="windows">
+                <svg class="os-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.949"/>
+                </svg>
+                Windows
+              </a>
+              <a href="#" class="dropdown-item" data-os="macos">
+                <svg class="os-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                macOS
+              </a>
+              <a href="#" class="dropdown-item" data-os="linux">
+                <svg class="os-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.504 0c-.155 0-.315.008-.48.021-4.226.333-3.105 4.807-3.17 6.298-.076 1.092-.3 1.953-1.05 3.02-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.287 2.489.117.779.454 1.509 1.041 2.088.667.657 1.537.98 2.427 1.073.78.082 1.59.009 2.338-.235.17-.056.337-.12.5-.19.247.042.508.063.776.063.442 0 .877-.049 1.293-.144.21.092.427.173.648.241.813.248 1.695.322 2.54.235.986-.102 1.936-.467 2.63-1.175.576-.588.908-1.333 1.019-2.13.116-.83-.021-1.7-.317-2.54-.61-1.785-1.869-3.49-2.768-4.548-.758-1.077-.985-1.945-1.06-3.044-.063-1.493 1.063-5.983-3.16-6.299-.176-.015-.348-.024-.526-.024h-.025zM12.5 1.5c.124 0 .252.006.384.018 2.21.175 2.083 2.626 2.034 4.19-.032 1.025.127 2.088.742 3.225l.095.174c.889 1.04 2.067 2.625 2.575 4.12.248.726.348 1.434.269 2.068-.08.611-.326 1.143-.703 1.534-.454.469-1.086.72-1.772.803-.62.075-1.284.022-1.908-.172a4.79 4.79 0 01-.492-.178 4.69 4.69 0 01-1.724.313c-.205 0-.407-.017-.602-.05a4.03 4.03 0 01-.423.16c-.557.178-1.152.238-1.718.169-.656-.08-1.278-.325-1.723-.774-.414-.418-.662-.926-.747-1.489-.095-.627.018-1.312.27-2.025.502-1.453 1.663-3.078 2.54-4.111l.096-.173c.622-1.137.781-2.2.75-3.227-.048-1.566-.175-4.01 2.04-4.189.134-.012.262-.018.388-.018l.062.001z"/>
+                </svg>
+                Linux
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="cta-note">Portable UI runs in your browser — no install needed.</p>
+    </div>
+  </section>
+
+  <!-- Footer (loaded from components.js) -->
+  <div id="footer-placeholder"></div>
+
+  <script src="components.js"></script>
+  <script src="app.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>
