@@ -314,12 +314,13 @@
 
   <!-- CLI Showcase Section -->
   <section class="showcase showcase-cli">
-    <div class="showcase-container showcase-container-reverse">
-      <div class="showcase-content">
+    <div class="showcase-container-stacked">
+      <!-- Text content centered above -->
+      <div class="showcase-content-centered">
         <span class="section-badge section-badge-dark-on-dark">Command Line</span>
         <h2 class="showcase-title">Power at your fingertips</h2>
         <p class="showcase-desc">For developers and automation. The CLI is fast, scriptable, and integrates into your existing workflow.</p>
-        <ul class="showcase-features">
+        <ul class="showcase-features-centered">
           <li>
             <svg class="check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
@@ -357,18 +358,16 @@
           </svg>
         </a>
       </div>
-      <div class="showcase-visual">
-        <!-- Terminal Animation Placeholder -->
-        <div class="terminal-frame">
-          <div class="terminal-header">
-            <span class="terminal-dot terminal-dot-red"></span>
-            <span class="terminal-dot terminal-dot-yellow"></span>
-            <span class="terminal-dot terminal-dot-green"></span>
-            <span class="terminal-title">Terminal — pulp-image</span>
-          </div>
-          <div class="terminal-body">
-            <div id="asciinema-player-container"></div>
-          </div>
+      <!-- Terminal animation -->
+      <div class="terminal-frame terminal-frame-wide">
+        <div class="terminal-header">
+          <span class="terminal-dot terminal-dot-red"></span>
+          <span class="terminal-dot terminal-dot-yellow"></span>
+          <span class="terminal-dot terminal-dot-green"></span>
+          <span class="terminal-title">Terminal — pulp-image</span>
+        </div>
+        <div class="terminal-body">
+          <div id="asciinema-player-container"></div>
         </div>
       </div>
     </div>
@@ -596,75 +595,19 @@ Total saved:         <span class="highlight">9.26 MB (92.03%)</span></pre>
   <script src="search.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.14.0/dist/bundle/asciinema-player.min.js"></script>
   <script>
-    // Initialize asciinema player when both DOM and script are ready
-    function initAsciinemaPlayer() {
+    // Initialize asciinema player
+    document.addEventListener('DOMContentLoaded', function() {
       const container = document.getElementById('asciinema-player-container');
-      if (!container) {
-        console.error('Asciinema player container not found');
-        return;
-      }
-      
-      if (typeof AsciinemaPlayer === 'undefined') {
-        console.error('AsciinemaPlayer is not defined. Script may not have loaded.');
-        return;
-      }
-      
-      try {
+      if (container && typeof AsciinemaPlayer !== 'undefined') {
         AsciinemaPlayer.create('assets/cli-demo.cast', container, {
           autoPlay: true,
           loop: true,
           preload: true,
-          fit: false,
-          terminalFontSize: 14,
-          rows: 20
+          fit: 'width',
+          idleTimeLimit: 2
         });
-      } catch (error) {
-        console.error('Asciinema player error:', error);
-        container.innerHTML = '<div style="color: var(--tokyo-fg); text-align: center; padding: 2rem;">Error loading terminal animation. Please check the console.</div>';
       }
-    }
-    
-    // Wait for both DOM and AsciinemaPlayer script to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        // Check if script loaded, if not wait
-        if (typeof AsciinemaPlayer !== 'undefined') {
-          initAsciinemaPlayer();
-        } else {
-          const checkInterval = setInterval(function() {
-            if (typeof AsciinemaPlayer !== 'undefined') {
-              clearInterval(checkInterval);
-              initAsciinemaPlayer();
-            }
-          }, 50);
-          // Timeout after 5 seconds
-          setTimeout(function() {
-            clearInterval(checkInterval);
-            if (typeof AsciinemaPlayer === 'undefined') {
-              console.error('AsciinemaPlayer script failed to load');
-            }
-          }, 5000);
-        }
-      });
-    } else {
-      // DOM already ready, check for script
-      if (typeof AsciinemaPlayer !== 'undefined') {
-        initAsciinemaPlayer();
-      } else {
-        const checkInterval = setInterval(function() {
-          if (typeof AsciinemaPlayer !== 'undefined') {
-            clearInterval(checkInterval);
-            initAsciinemaPlayer();
-          }
-        }, 50);
-        setTimeout(function() {
-          clearInterval(checkInterval);
-          if (typeof AsciinemaPlayer === 'undefined') {
-            console.error('AsciinemaPlayer script failed to load');
-          }
-        }, 5000);
-      }
-    }
+    });
   </script>
 </body>
 </html>
