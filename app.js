@@ -341,6 +341,121 @@
         screenshotFrame.classList.remove('scrolling');
       });
     }
+    
+    // Scroll-linked unstack animation for stacked screenshots
+    const stackedScreenshots = document.querySelector('.stacked-screenshots');
+    if (stackedScreenshots) {
+      const cardBack = stackedScreenshots.querySelector('.stacked-card-back');
+      const cardMiddle = stackedScreenshots.querySelector('.stacked-card-middle');
+      const cardFront = stackedScreenshots.querySelector('.stacked-card-front');
+      const cards = [cardBack, cardMiddle, cardFront];
+      
+      // Store base transforms for hover effect
+      let baseTransforms = { back: '', middle: '', front: '' };
+      let currentProgress = 0;
+      
+      function updateCardPositions() {
+        const rect = stackedScreenshots.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Element center position
+        const elementCenter = rect.top + rect.height / 2;
+        
+        // Animation zones with dead zone in middle where cards stay unstacked
+        const enterStart = windowHeight * 0.90;  // Start unstacking
+        const enterEnd = windowHeight * 0.60;    // Fully unstacked
+        const deadZoneTop = windowHeight * 0.60; // Stay unstacked...
+        const deadZoneBottom = windowHeight * 0.40; // ...until here
+        const exitStart = windowHeight * 0.40;   // Start stacking
+        const exitEnd = windowHeight * 0.10;     // Fully stacked
+        
+        let progress = 0;
+        
+        if (elementCenter > enterStart) {
+          // Above viewport - stacked
+          progress = 0;
+        } else if (elementCenter > enterEnd) {
+          // Entering - unstacking
+          progress = (enterStart - elementCenter) / (enterStart - enterEnd);
+        } else if (elementCenter > deadZoneBottom) {
+          // Dead zone - stay fully unstacked
+          progress = 1;
+        } else if (elementCenter > exitEnd) {
+          // Exiting - stacking again
+          progress = (elementCenter - exitEnd) / (exitStart - exitEnd);
+        } else {
+          // Below viewport - stacked
+          progress = 0;
+        }
+        
+        progress = Math.max(0, Math.min(1, progress));
+        currentProgress = progress;
+        
+        // Check if mobile (vertical layout)
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+          // Vertical spread on mobile
+          const backY = -50 + (70 * progress);   // Back goes down
+          const middleY = -50;
+          const frontY = -50 - (70 * progress);  // Front goes up
+          const backRotate = 4 * progress;
+          const frontRotate = -3 * progress;
+          const backScale = 0.92 + (0.08 * progress);
+          const middleScale = 0.96 + (0.04 * progress);
+          
+          baseTransforms.back = `translate(-50%, ${backY}%) rotate(${backRotate}deg) scale(${backScale})`;
+          baseTransforms.middle = `translate(-50%, ${middleY}%) rotate(2deg) scale(${middleScale})`;
+          baseTransforms.front = `translate(-50%, ${frontY}%) rotate(${frontRotate}deg) scale(1)`;
+        } else {
+          // Desktop: Layout matching reference image exactly
+          // Front (Options): center-left, tilted left
+          // Middle (Files): bottom-right, behind front, "Files" visible at bottom
+          // Back: top-right, furthest back
+          
+          // Front card (Options): center-left
+          const frontX = -50 + (-28 * progress);  // Move left more
+          const frontY = -50 + (5 * progress);    // Move down slightly
+          const frontRotate = -2 - (4 * progress); // Tilt left
+          
+          // Middle card (Files): bottom-right, lower than front
+          const middleX = -50 + (8 * progress);   // Move right less
+          const middleY = -50 + (22 * progress);  // Move down
+          const middleRotate = 2 + (5 * progress); // Tilt right
+          
+          // Back card: top-right, higher up
+          const backX = -50 + (5 * progress);     // Move right less
+          const backY = -50 + (-40 * progress);   // Move up
+          const backRotate = 3 + (6 * progress);  // Tilt right
+          
+          const backScale = 0.90 + (0.10 * progress);
+          const middleScale = 0.94 + (0.06 * progress);
+          
+          baseTransforms.front = `translate(${frontX}%, ${frontY}%) rotate(${frontRotate}deg) scale(1)`;
+          baseTransforms.middle = `translate(${middleX}%, ${middleY}%) rotate(${middleRotate}deg) scale(${middleScale})`;
+          baseTransforms.back = `translate(${backX}%, ${backY}%) rotate(${backRotate}deg) scale(${backScale})`;
+        }
+        
+        // Apply transforms (unless hovering)
+        if (!stackedScreenshots.classList.contains('hovering')) {
+          cardBack.style.transform = baseTransforms.back;
+          cardMiddle.style.transform = baseTransforms.middle;
+          cardFront.style.transform = baseTransforms.front;
+          
+          // Reset z-index to default
+          cardBack.style.zIndex = '1';
+          cardMiddle.style.zIndex = '2';
+          cardFront.style.zIndex = '3';
+        }
+      }
+      
+      // Update on scroll
+      window.addEventListener('scroll', updateCardPositions, { passive: true });
+      window.addEventListener('resize', updateCardPositions, { passive: true });
+      
+      // Initial update
+      updateCardPositions();
+    }
   }
 
   // Run when DOM is ready

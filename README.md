@@ -17,8 +17,8 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 ### Screenshots Needed
 
 1. ✅ **Homepage hero** — Main UI screenshot showing the full interface *(COMPLETED - scrollable with gradient & indicator)*
-2. **UI Showcase section** — Screenshot for UI showcase on homepage (`index.html` line 286)
-3. **UI Guide** — Screenshots for each section:
+2. ✅ **UI Showcase section** — 3 stacked cards with scroll animation *(COMPLETED - ui-card-front.webp, ui-card-middle.webp, ui-card-back.webp)*
+3. **UI Guide** — Screenshots for each section (ui.html):
    - Interface overview
    - File selection (drag & drop / browse)
    - Output settings panel
@@ -42,13 +42,13 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 
 **Completed:**
 - ✅ Hero section screenshot (index.html) - Full UI screenshot with scrollable container, gradient fade, scroll indicator, and subtle animation
+- ✅ UI Showcase stacked cards (index.html) - 3 cards with scroll-linked stack/unstack animation
 
 **Remaining:**
-- ⚪ 1 screenshot in index.html (UI showcase section)
 - ⚪ 1 terminal animation in index.html (CLI showcase)
 - ⚪ 8 screenshots in ui.html (various UI sections)
 
-**Total Progress:** 1/10 placeholders completed (10%)
+**Total Progress:** 2/10 placeholders completed (20%)
 
 ### Download Files to Create
 

@@ -1353,6 +1353,127 @@ code {
   justify-content: center;
 }
 
+/* Stacked Screenshots - scroll-linked unstack */
+.stacked-screenshots {
+  position: relative;
+  width: 560px;
+  height: 380px;
+}
+
+.stacked-card {
+  position: absolute;
+  width: 420px;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  border: 1px solid var(--warm-gray-200);
+}
+
+.stacked-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 18px;
+  background: var(--warm-gray-100);
+  border-bottom: 1px solid var(--warm-gray-200);
+}
+
+.stacked-card-header .screenshot-dot {
+  width: 11px;
+  height: 11px;
+}
+
+.stacked-card-body {
+  padding: 0;
+  background: var(--cream);
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Placeholder styles for stacked cards */
+.stacked-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+}
+
+.stacked-placeholder-icon {
+  font-size: 3.5rem;
+}
+
+.stacked-placeholder-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Stacked card image */
+.stacked-card-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Card z-index layering - front is on top (left side), back is behind (right side) */
+.stacked-card-back {
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  /* Initial transform set by JS */
+  transform: translate(-50%, -50%) rotate(3deg) scale(0.90);
+}
+
+.stacked-card-middle {
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%) rotate(2deg) scale(0.94);
+}
+
+.stacked-card-front {
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  transform: translate(-50%, -50%) rotate(-2deg) scale(1);
+}
+
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .stacked-screenshots {
+    width: 480px;
+    height: 340px;
+  }
+  
+  .stacked-card {
+    width: 360px;
+  }
+  
+  .stacked-card-body {
+    min-height: 220px;
+  }
+}
+
+/* Mobile adjustments - transforms controlled by JS */
+@media (max-width: 768px) {
+  .stacked-screenshots {
+    width: 340px;
+    height: 560px;
+  }
+  
+  .stacked-card {
+    width: 300px;
+  }
+  
+  .stacked-card-body {
+    min-height: 180px;
+  }
+}
+
 /* Terminal Frame */
 .terminal-frame {
   background: var(--tokyo-bg-dark);
