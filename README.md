@@ -11,7 +11,7 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 | Location | What to Replace | File(s) | Status |
 |----------|-----------------|---------|--------|
 | **UI Screenshots** | Replace `.screenshot-placeholder` elements with actual UI screenshots | `index.html`, `ui.html` | 🟡 In Progress |
-| **Terminal Animations** | Replace `.terminal-placeholder` elements with asciinema embeds or GIFs | `index.html` | ⚪ Not Started |
+| **Terminal Animations** | Replace `.terminal-placeholder` elements with asciinema embeds or GIFs | `index.html` | ✅ COMPLETED |
 | **Download ZIP URLs** | Update `getDownloadURL()` with real GitHub Release URLs | `app.js`, `search.js` | ✅ URLs configured (need actual files) |
 
 ### Screenshots Needed
@@ -33,7 +33,7 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 
 ### Terminal Animations Needed
 
-1. **CLI showcase** — Basic batch conversion workflow (`index.html` line 352)
+1. ✅ **CLI showcase** — Basic batch conversion workflow (`index.html` line 352) *(COMPLETED - asciinema player with cli-demo.cast)*
 2. **Homepage examples** — Quick demo of common commands (optional)
 
 ---
@@ -43,12 +43,12 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 **Completed:**
 - ✅ Hero section screenshot (index.html) - Full UI screenshot with scrollable container, gradient fade, scroll indicator, and subtle animation
 - ✅ UI Showcase stacked cards (index.html) - 3 cards with scroll-linked stack/unstack animation
+- ✅ CLI terminal animation (index.html) - Asciinema player with cli-demo.cast showing batch processing workflow
 
 **Remaining:**
-- ⚪ 1 terminal animation in index.html (CLI showcase)
 - ⚪ 8 screenshots in ui.html (various UI sections)
 
-**Total Progress:** 2/10 placeholders completed (20%)
+**Total Progress:** 3/11 placeholders completed (27%)
 
 ### Download Files to Create
 

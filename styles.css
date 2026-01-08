@@ -1481,9 +1481,10 @@ code {
   box-shadow: var(--shadow-xl);
   overflow: hidden;
   border: 1px solid var(--tokyo-bg-highlight);
-  max-width: 500px;
+  max-width: 700px;
   width: 100%;
 }
+
 
 .terminal-header {
   display: flex;
@@ -1519,6 +1520,22 @@ code {
   align-items: center;
   justify-content: center;
   padding: var(--space-lg);
+}
+
+#asciinema-player-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+#asciinema-player-container .asciinema-player {
+  width: 100% !important;
+}
+
+#asciinema-player-container .asciinema-terminal {
+  font-family: var(--font-mono) !important;
+  background: transparent !important;
 }
 
 .terminal-placeholder {

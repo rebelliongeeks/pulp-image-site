@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asciinema-player@3.14.0/dist/bundle/asciinema-player.css">
 </head>
 <body>
   <!-- Navigation (loaded from components.js) -->
@@ -363,14 +364,10 @@
             <span class="terminal-dot terminal-dot-red"></span>
             <span class="terminal-dot terminal-dot-yellow"></span>
             <span class="terminal-dot terminal-dot-green"></span>
-            <span class="terminal-title">Terminal — pulp</span>
+            <span class="terminal-title">Terminal — pulp-image</span>
           </div>
           <div class="terminal-body">
-            <div class="terminal-placeholder">
-              <div class="placeholder-icon terminal-icon">▶</div>
-              <span class="placeholder-title">CLI Demo Animation</span>
-              <span class="placeholder-desc">Watch Pulp process a batch of images with beautiful terminal output.</span>
-            </div>
+            <div id="asciinema-player-container"></div>
           </div>
         </div>
       </div>
@@ -597,5 +594,77 @@ Total saved:         <span class="highlight">9.26 MB (92.03%)</span></pre>
   <script src="components.js"></script>
   <script src="app.js"></script>
   <script src="search.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.14.0/dist/bundle/asciinema-player.min.js"></script>
+  <script>
+    // Initialize asciinema player when both DOM and script are ready
+    function initAsciinemaPlayer() {
+      const container = document.getElementById('asciinema-player-container');
+      if (!container) {
+        console.error('Asciinema player container not found');
+        return;
+      }
+      
+      if (typeof AsciinemaPlayer === 'undefined') {
+        console.error('AsciinemaPlayer is not defined. Script may not have loaded.');
+        return;
+      }
+      
+      try {
+        AsciinemaPlayer.create('assets/cli-demo.cast', container, {
+          autoPlay: true,
+          loop: true,
+          preload: true,
+          fit: false,
+          terminalFontSize: 14,
+          rows: 20
+        });
+      } catch (error) {
+        console.error('Asciinema player error:', error);
+        container.innerHTML = '<div style="color: var(--tokyo-fg); text-align: center; padding: 2rem;">Error loading terminal animation. Please check the console.</div>';
+      }
+    }
+    
+    // Wait for both DOM and AsciinemaPlayer script to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check if script loaded, if not wait
+        if (typeof AsciinemaPlayer !== 'undefined') {
+          initAsciinemaPlayer();
+        } else {
+          const checkInterval = setInterval(function() {
+            if (typeof AsciinemaPlayer !== 'undefined') {
+              clearInterval(checkInterval);
+              initAsciinemaPlayer();
+            }
+          }, 50);
+          // Timeout after 5 seconds
+          setTimeout(function() {
+            clearInterval(checkInterval);
+            if (typeof AsciinemaPlayer === 'undefined') {
+              console.error('AsciinemaPlayer script failed to load');
+            }
+          }, 5000);
+        }
+      });
+    } else {
+      // DOM already ready, check for script
+      if (typeof AsciinemaPlayer !== 'undefined') {
+        initAsciinemaPlayer();
+      } else {
+        const checkInterval = setInterval(function() {
+          if (typeof AsciinemaPlayer !== 'undefined') {
+            clearInterval(checkInterval);
+            initAsciinemaPlayer();
+          }
+        }, 50);
+        setTimeout(function() {
+          clearInterval(checkInterval);
+          if (typeof AsciinemaPlayer === 'undefined') {
+            console.error('AsciinemaPlayer script failed to load');
+          }
+        }, 5000);
+      }
+    }
+  </script>
 </body>
 </html>
