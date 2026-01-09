@@ -19,9 +19,8 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 1. ✅ **Homepage hero** — Main UI screenshot showing the full interface *(COMPLETED - scrollable with gradient & indicator)*
 2. ✅ **UI Showcase section** — 3 stacked cards with scroll animation *(COMPLETED - ui-card-front.webp, ui-card-middle.webp, ui-card-back.webp)*
 3. **UI Guide** — Screenshots for each section (ui.html):
-   - Interface overview
+   - ✅ Interface overview *(COMPLETED - ui-overview.webp)*
    - File selection (drag & drop / browse)
-   - Output settings panel
    - Format & quality options
    - Dimensions controls
    - Quality slider
@@ -44,11 +43,12 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 - ✅ Hero section screenshot (index.html) - Full UI screenshot with scrollable container, gradient fade, scroll indicator, and subtle animation
 - ✅ UI Showcase stacked cards (index.html) - 3 cards with scroll-linked stack/unstack animation
 - ✅ CLI terminal animation (index.html) - Asciinema player with cli-demo.cast showing batch processing workflow
+- ✅ UI Interface overview (ui.html) - Main interface screenshot showing all sections
 
 **Remaining:**
-- ⚪ 8 screenshots in ui.html (various UI sections)
+- ⚪ 7 screenshots in ui.html (input source, format, dimensions, quality, background, rename, results)
 
-**Total Progress:** 3/11 placeholders completed (27%)
+**Total Progress:** 4/11 placeholders completed (36%)
 
 ### Download Files to Create
 
@@ -496,9 +496,15 @@ pulp-site/
 ├── components.js       # Shared nav + footer (single source of truth)
 ├── search.js           # Terminal fuzzy search
 ├── assets/
-│   ├── pulp-logo.svg        # Orange logo
-│   └── pulp-logo-white.svg  # White logo for footer
-└── README.md           # This file
+│   ├── pulp-logo.svg            # Orange logo
+│   ├── pulp-logo-white.svg      # White logo for footer
+│   ├── hero-ui-screenshot.webp  # Hero section screenshot
+│   ├── ui-card-front.webp       # UI showcase card (front)
+│   ├── ui-card-middle.webp      # UI showcase card (middle)
+│   ├── ui-card-back.webp        # UI showcase card (back)
+│   ├── ui-overview.webp         # UI guide overview
+│   └── cli-demo.cast            # Asciinema recording
+└── README.md               # This file
 ```
 
 ---
