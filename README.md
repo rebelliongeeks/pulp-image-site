@@ -4,51 +4,39 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 
 ---
 
-## ⚠️ TODO Before Launch
-
-### Placeholders to Replace
+## ✅ Placeholders Status
 
 | Location | What to Replace | File(s) | Status |
 |----------|-----------------|---------|--------|
-| **UI Screenshots** | Replace `.screenshot-placeholder` elements with actual UI screenshots | `index.html`, `ui.html` | 🟡 In Progress |
+| **UI Screenshots** | Replace `.screenshot-placeholder` elements with actual UI screenshots | `index.html`, `ui.html` | ✅ COMPLETED |
 | **Terminal Animations** | Replace `.terminal-placeholder` elements with asciinema embeds or GIFs | `index.html` | ✅ COMPLETED |
 | **Download ZIP URLs** | Update `getDownloadURL()` with real GitHub Release URLs | `app.js`, `search.js` | ✅ URLs configured (need actual files) |
 
-### Screenshots Needed
+### Screenshots Added
 
-1. ✅ **Homepage hero** — Main UI screenshot showing the full interface *(COMPLETED - scrollable with gradient & indicator)*
-2. ✅ **UI Showcase section** — 3 stacked cards with scroll animation *(COMPLETED - ui-card-front.webp, ui-card-middle.webp, ui-card-back.webp)*
-3. **UI Guide** — Screenshots for each section (ui.html):
-   - ✅ Interface overview *(COMPLETED - ui-overview.webp)*
-   - File selection (drag & drop / browse)
-   - Format & quality options
-   - Dimensions controls
-   - Quality slider
-   - Background color picker
-   - Rename pattern input
-   - Processing results summary
+1. ✅ **Homepage hero** — `hero-ui-screenshot.webp` (scrollable with gradient & indicator)
+2. ✅ **UI Showcase section** — `ui-card-front.webp`, `ui-card-middle.webp`, `ui-card-back.webp` (scroll-linked stack animation)
+3. ✅ **UI Guide** — All screenshots for ui.html:
+   - ✅ `ui-overview.webp` — Interface overview
+   - ✅ `ui-input-source.webp` — File/folder selection
+   - ✅ `ui-format-selection.webp` — Format dropdown
+   - ✅ `ui-dimensions.webp` — Width & height controls
+   - ✅ `ui-quality-slider.webp` — Quality slider & lossless toggle
+   - ✅ `ui-background-color.webp` — Color picker
+   - ✅ `ui-rename-pattern.webp` — Rename pattern & auto suffix
+   - ✅ `ui-results-summary.webp` — Processing results
 
-> ⚠️ **Note:** Some placeholder elements have overlay text (titles/descriptions) that may need to be removed or repositioned when adding actual images. Review each placeholder carefully when replacing.
+### Terminal Animations
 
-### Terminal Animations Needed
-
-1. ✅ **CLI showcase** — Basic batch conversion workflow (`index.html` line 352) *(COMPLETED - asciinema player with cli-demo.cast)*
-2. **Homepage examples** — Quick demo of common commands (optional)
+1. ✅ **CLI showcase** — `cli-demo.cast` (asciinema player showing batch processing workflow)
 
 ---
 
 ### Progress Summary
 
-**Completed:**
-- ✅ Hero section screenshot (index.html) - Full UI screenshot with scrollable container, gradient fade, scroll indicator, and subtle animation
-- ✅ UI Showcase stacked cards (index.html) - 3 cards with scroll-linked stack/unstack animation
-- ✅ CLI terminal animation (index.html) - Asciinema player with cli-demo.cast showing batch processing workflow
-- ✅ UI Interface overview (ui.html) - Main interface screenshot showing all sections
+**All placeholders completed!** ✅
 
-**Remaining:**
-- ⚪ 7 screenshots in ui.html (input source, format, dimensions, quality, background, rename, results)
-
-**Total Progress:** 4/11 placeholders completed (36%)
+**Total Progress:** 11/11 placeholders completed (100%)
 
 ### Download Files to Create
 
@@ -174,15 +162,9 @@ Or use any static file server (e.g., `npx serve`).
 1. Update `SITE_VERSION` in `components.js`
 2. The footer will automatically use the new version
 
-## Placeholders to Replace
+## Placeholders (All Completed ✅)
 
-Before deploying, replace these placeholders with actual content:
-
-### Screenshots (in all pages)
-Look for elements with class `screenshot-placeholder` or `ui-screenshot-placeholder`. Replace with actual screenshots of the UI.
-
-### Terminal Animations
-Look for `terminal-placeholder` elements. Replace with asciinema embeds or animated GIFs showing CLI usage.
+All placeholder content has been replaced with actual screenshots and animations. No remaining placeholders.
 
 ### Download URLs
 
@@ -503,6 +485,13 @@ pulp-site/
 │   ├── ui-card-middle.webp      # UI showcase card (middle)
 │   ├── ui-card-back.webp        # UI showcase card (back)
 │   ├── ui-overview.webp         # UI guide overview
+│   ├── ui-input-source.webp     # Input source section
+│   ├── ui-format-selection.webp # Format dropdown
+│   ├── ui-dimensions.webp       # Width/height controls
+│   ├── ui-quality-slider.webp   # Quality & lossless
+│   ├── ui-background-color.webp # Color picker
+│   ├── ui-rename-pattern.webp   # Rename pattern & auto suffix
+│   ├── ui-results-summary.webp  # Processing results
 │   └── cli-demo.cast            # Asciinema recording
 └── README.md               # This file
 ```
