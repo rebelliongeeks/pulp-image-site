@@ -220,14 +220,7 @@
       if (copyBtn) {
         copyBtn.addEventListener('click', () => {
           const textToCopy = example.dataset.copy;
-          copyToClipboard(textToCopy, copyBtn).then(success => {
-            if (success) {
-              copyBtn.textContent = 'Copied!';
-              setTimeout(() => {
-                copyBtn.textContent = 'Copy';
-              }, 2000);
-            }
-          });
+          copyToClipboard(textToCopy, copyBtn);
         });
       }
     });

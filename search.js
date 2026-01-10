@@ -622,6 +622,13 @@
     renderResults(currentResults, selectedIndex);
   }
   
+  function scrollSelectedIntoView() {
+    const selected = document.querySelector('.search-result-selected');
+    if (selected) {
+      selected.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
+  
   function handleKeydown(e) {
     if (!isOpen) return;
     
@@ -631,6 +638,7 @@
         if (currentResults.length > 0) {
           selectedIndex = (selectedIndex + 1) % currentResults.length;
           renderResults(currentResults, selectedIndex);
+          scrollSelectedIntoView();
         }
         break;
         
@@ -639,6 +647,7 @@
         if (currentResults.length > 0) {
           selectedIndex = (selectedIndex - 1 + currentResults.length) % currentResults.length;
           renderResults(currentResults, selectedIndex);
+          scrollSelectedIntoView();
         }
         break;
         

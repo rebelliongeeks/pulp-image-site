@@ -647,9 +647,12 @@ code {
   justify-content: center;
   width: 32px;
   height: 32px;
+  padding: 0;
+  border: none;
   border-radius: var(--border-radius-sm);
   background: var(--tokyo-bg-highlight);
   color: var(--tokyo-fg);
+  cursor: pointer;
   transition: all 0.2s;
   flex-shrink: 0;
 }
@@ -1679,10 +1682,12 @@ code {
 }
 
 .terminal-block {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-sm);
   padding: 0.75rem 1rem;
+  padding-right: 3rem; /* Space for sticky copy button */
   background: var(--tokyo-bg);
   border-radius: var(--border-radius);
   font-family: var(--font-mono);
@@ -1702,8 +1707,13 @@ code {
 }
 
 .copy-btn-terminal {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   width: 28px;
   height: 28px;
+  flex-shrink: 0;
 }
 
 .copy-btn-terminal svg {
@@ -2293,15 +2303,23 @@ code {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  padding: 0.375rem 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   background: var(--tokyo-bg-highlight);
-  border: 1px solid var(--tokyo-comment);
+  border: none;
   border-radius: var(--border-radius-sm);
-  font-size: 0.75rem;
-  font-family: var(--font-body);
-  color: var(--tokyo-fg-dark);
+  color: var(--tokyo-fg);
   cursor: pointer;
   transition: all 0.2s;
+}
+
+.terminal-example-copy svg {
+  width: 14px;
+  height: 14px;
 }
 
 .terminal-example-copy:hover {
@@ -2311,8 +2329,15 @@ code {
 
 .terminal-example-copy.copied {
   background: var(--tokyo-green);
-  border-color: var(--tokyo-green);
   color: var(--tokyo-bg);
+}
+
+.terminal-example-copy.copied .copy-icon {
+  display: none !important;
+}
+
+.terminal-example-copy.copied .check-icon {
+  display: block !important;
 }
 
 /* Help Info Cards */
