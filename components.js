@@ -132,6 +132,13 @@ function loadComponents() {
   if (footerPlaceholder) {
     footerPlaceholder.outerHTML = getFooterHTML();
   }
+  
+  // Update any version placeholders on the page
+  const versionElements = document.querySelectorAll('#cli-version-example');
+  versionElements.forEach(el => {
+    // Remove 'v' prefix for CLI output display
+    el.textContent = SITE_VERSION.replace(/^v/, '');
+  });
 }
 
 // Export for use
