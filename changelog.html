@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog | Pulp Image</title>
+  <meta name="description" content="Version history and release notes for Pulp Image.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Changelog-specific styles */
+    .changelog-hero {
+      padding: var(--space-3xl) var(--space-lg) var(--space-2xl);
+      background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
+      text-align: center;
+    }
+    
+    .changelog-hero-container {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+    }
+    
+    .changelog-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.02em;
+    }
+    
+    .changelog-hero-desc {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .changelog-content {
+      padding: var(--space-2xl) var(--space-lg) var(--space-4xl);
+      background: var(--warm-white);
+    }
+    
+    .changelog-container {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+    }
+    
+    /* Version entries */
+    .changelog-entry {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: var(--space-3xl);
+    }
+    
+    .changelog-entry::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      bottom: 0;
+      width: 2px;
+      background: var(--warm-gray-200);
+    }
+    
+    .changelog-entry:last-child::before {
+      display: none;
+    }
+    
+    .changelog-entry-dot {
+      position: absolute;
+      left: -5px;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--orange-primary);
+      border: 3px solid var(--warm-white);
+      box-shadow: 0 0 0 2px var(--orange-primary);
+    }
+    
+    .changelog-entry-latest .changelog-entry-dot {
+      background: var(--tokyo-green);
+      box-shadow: 0 0 0 2px var(--tokyo-green);
+    }
+    
+    .changelog-entry-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+    }
+    
+    .changelog-version {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .changelog-date {
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+    }
+    
+    .changelog-badge-latest {
+      display: inline-block;
+      padding: 0.25rem 0.625rem;
+      background: var(--tokyo-green);
+      color: white;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 100px;
+    }
+    
+    .changelog-section {
+      margin-bottom: var(--space-lg);
+    }
+    
+    .changelog-section-title {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .changelog-section-title-added {
+      color: #2e7d32;
+    }
+    
+    .changelog-section-title-changed {
+      color: #1565c0;
+    }
+    
+    .changelog-section-title-fixed {
+      color: #7b1fa2;
+    }
+    
+    .changelog-section-title-removed {
+      color: #c62828;
+    }
+    
+    .changelog-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .changelog-list li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .changelog-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--warm-gray-400);
+    }
+    
+    .changelog-list code {
+      background: var(--tokyo-bg);
+      color: var(--tokyo-cyan);
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      font-size: 0.8125rem;
+    }
+    
+    /* Unreleased section */
+    .changelog-unreleased {
+      background: var(--orange-bg-light);
+      border: 1px dashed var(--orange-light);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .changelog-unreleased-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .changelog-unreleased-icon {
+      font-size: 1.25rem;
+    }
+    
+    .changelog-unreleased-title {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--orange-text);
+    }
+    
+    .changelog-unreleased-text {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .changelog-unreleased-text a {
+      color: var(--orange-text);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    
+    .changelog-unreleased-text a:hover {
+      color: var(--orange-text-hover);
+    }
+    
+    /* Initial release special styling */
+    .changelog-entry-initial {
+      background: linear-gradient(135deg, var(--cream) 0%, var(--orange-bg-light) 100%);
+      margin-left: -2rem;
+      padding: var(--space-xl);
+      padding-left: calc(2rem + var(--space-xl));
+      border-radius: var(--border-radius-lg);
+      border: 1px solid var(--orange-light);
+    }
+    
+    .changelog-entry-initial::before {
+      display: none;
+    }
+    
+    .changelog-entry-initial .changelog-entry-dot {
+      left: calc(var(--space-xl) - 5px);
+    }
+    
+    /* Compact entries for patch releases */
+    .changelog-entry-compact {
+      margin-bottom: var(--space-lg);
+    }
+    
+    .changelog-entry-compact .changelog-version {
+      font-size: 1.125rem;
+    }
+    
+    .changelog-entry-compact .changelog-section {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body class="help-page">
+  <!-- Navigation (loaded from components.js) -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Hero Section -->
+  <header class="changelog-hero">
+    <div class="changelog-hero-container">
+      <span class="section-badge">Changelog</span>
+      <h1 class="changelog-hero-title">Version History</h1>
+      <p class="changelog-hero-desc">
+        All notable changes to Pulp Image. See what's new, improved, or fixed in each release.
+      </p>
+    </div>
+  </header>
+
+  <!-- Changelog Content -->
+  <main class="changelog-content">
+    <div class="changelog-container">
+
+      <!-- Unreleased -->
+      <div class="changelog-unreleased">
+        <div class="changelog-unreleased-header">
+          <span class="changelog-unreleased-icon">🚧</span>
+          <h2 class="changelog-unreleased-title">Unreleased</h2>
+        </div>
+        <p class="changelog-unreleased-text">
+          See the <a href="roadmap.html">Roadmap</a> for upcoming features. Next up: UI Redesign, Rotate, Flip, Grayscale, Auto-Orient (v0.2.0).
+        </p>
+      </div>
+
+      <!-- v0.1.8 -->
+      <article class="changelog-entry changelog-entry-latest">
+        <div class="changelog-entry-dot"></div>
+        <header class="changelog-entry-header">
+          <span class="changelog-version">0.1.8</span>
+          <span class="changelog-date">January 13, 2026</span>
+          <span class="changelog-badge-latest">Latest</span>
+        </header>
+        <section class="changelog-section">
+          <h3 class="changelog-section-title changelog-section-title-changed">
+            <span>📝</span> Changed
+          </h3>
+          <ul class="changelog-list">
+            <li>Streamlined README with quick links and features grid</li>
+            <li>Added public roadmap and changelog</li>
+            <li>Improved documentation and help content</li>
+          </ul>
+        </section>
+      </article>
+
+      <!-- v0.1.7 -->
+      <article class="changelog-entry changelog-entry-compact">
+        <div class="changelog-entry-dot"></div>
+        <header class="changelog-entry-header">
+          <span class="changelog-version">0.1.7</span>
+          <span class="changelog-date">January 12, 2026</span>
+        </header>
+        <section class="changelog-section">
+          <h3 class="changelog-section-title changelog-section-title-fixed">
+            <span>🐛</span> Fixed
+          </h3>
+          <ul class="changelog-list">
+            <li>Custom output directory filter not working correctly in UI</li>
+          </ul>
+        </section>
+      </article>
+
+      <!-- v0.1.5 -->
+      <article class="changelog-entry changelog-entry-compact">
+        <div class="changelog-entry-dot"></div>
+        <header class="changelog-entry-header">
+          <span class="changelog-version">0.1.5</span>
+          <span class="changelog-date">January 11, 2026</span>
+        </header>
+        <section class="changelog-section">
+          <h3 class="changelog-section-title changelog-section-title-fixed">
+            <span>🐛</span> Fixed
+          </h3>
+          <ul class="changelog-list">
+            <li>UI color contrast improved for WCAG AA accessibility</li>
+          </ul>
+        </section>
+      </article>
+
+      <!-- v0.1.2-0.1.4 -->
+      <article class="changelog-entry changelog-entry-compact">
+        <div class="changelog-entry-dot"></div>
+        <header class="changelog-entry-header">
+          <span class="changelog-version">0.1.2 - 0.1.4</span>
+          <span class="changelog-date">January 9-10, 2026</span>
+        </header>
+        <section class="changelog-section">
+          <h3 class="changelog-section-title changelog-section-title-fixed">
+            <span>🐛</span> Fixed
+          </h3>
+          <ul class="changelog-list">
+            <li>npm bin configuration for global install</li>
+            <li>Dynamic version display in banner</li>
+            <li>Terminal banner width now responsive</li>
+          </ul>
+        </section>
+      </article>
+
+      <!-- v0.1.1 - Initial Release -->
+      <article class="changelog-entry changelog-entry-initial">
+        <div class="changelog-entry-dot"></div>
+        <header class="changelog-entry-header">
+          <span class="changelog-version">0.1.1</span>
+          <span class="changelog-date">January 9, 2026 (Initial Release)</span>
+        </header>
+        <section class="changelog-section">
+          <h3 class="changelog-section-title changelog-section-title-added">
+            <span>🎉</span> Initial Features
+          </h3>
+          <ul class="changelog-list">
+            <li><strong>CLI Tool:</strong> Full command-line interface for image processing</li>
+            <li><strong>Browser UI:</strong> Launch with <code>pulp ui</code>, works offline, no uploads</li>
+            <li><strong>Format Conversion:</strong> PNG, JPG, WebP, AVIF</li>
+            <li><strong>Resize:</strong> By width, height, or exact dimensions with aspect ratio preservation</li>
+            <li><strong>Quality Control:</strong> Compression quality 1-100 for lossy formats</li>
+            <li><strong>Lossless Mode:</strong> For WebP and AVIF</li>
+            <li><strong>Transparency Handling:</strong> Flatten with custom background color</li>
+            <li><strong>Batch Processing:</strong> Process entire folders at once</li>
+            <li><strong>Auto Suffix:</strong> Add dimensions to filenames (-800w, -600h, -800x600)</li>
+            <li><strong>Custom Suffix:</strong> Add custom text to output filenames</li>
+            <li><strong>Rename Patterns:</strong> Tokens <code>{name}</code>, <code>{ext}</code>, <code>{index}</code> for output naming (UI only)</li>
+            <li><strong>Custom Output Directory:</strong> Save files anywhere</li>
+            <li><strong>Overwrite Protection:</strong> Skip or overwrite existing files</li>
+            <li><strong>Delete Originals:</strong> Remove source files after processing (CLI only)</li>
+            <li><strong>Verbose Mode:</strong> Detailed per-file output (CLI only)</li>
+            <li><strong>Statistics:</strong> Original size, final size, bytes saved, percentage reduction</li>
+          </ul>
+        </section>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Footer (loaded from components.js) -->
+  <div id="footer-placeholder"></div>
+
+  <script src="components.js"></script>
+  <script src="app.js"></script>
+  <script src="search.js"></script>
+</body>
+</html>

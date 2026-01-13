@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadmap | Pulp Image</title>
+  <meta name="description" content="See what's coming next for Pulp Image. Feature roadmap and version milestones.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Roadmap-specific styles */
+    .roadmap-hero {
+      padding: var(--space-3xl) var(--space-lg) var(--space-2xl);
+      background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
+      text-align: center;
+    }
+    
+    .roadmap-hero-container {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+    }
+    
+    .roadmap-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+      letter-spacing: -0.02em;
+    }
+    
+    .roadmap-hero-desc {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .roadmap-content {
+      padding: var(--space-2xl) var(--space-lg) var(--space-4xl);
+      background: var(--warm-white);
+    }
+    
+    .roadmap-container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+    }
+    
+    /* Kanban-style columns */
+    .roadmap-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+      margin-bottom: var(--space-3xl);
+    }
+    
+    @media (max-width: 1024px) {
+      .roadmap-board {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
+      }
+    }
+    
+    .roadmap-column {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      border: 1px solid var(--warm-gray-200);
+      overflow: hidden;
+    }
+    
+    .roadmap-column-header {
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--warm-gray-200);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .roadmap-column-icon {
+      font-size: 1.5rem;
+    }
+    
+    .roadmap-column-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .roadmap-column-count {
+      margin-left: auto;
+      background: var(--warm-gray-100);
+      color: var(--text-muted);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 0.25rem 0.625rem;
+      border-radius: 100px;
+    }
+    
+    /* Done column */
+    .roadmap-column-done .roadmap-column-header {
+      background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    }
+    
+    .roadmap-column-done .roadmap-column-count {
+      background: #4caf50;
+      color: white;
+    }
+    
+    /* In Dev column */
+    .roadmap-column-dev .roadmap-column-header {
+      background: linear-gradient(135deg, var(--orange-bg) 0%, #ffe4cc 100%);
+    }
+    
+    .roadmap-column-dev .roadmap-column-count {
+      background: var(--orange-primary);
+      color: white;
+    }
+    
+    /* Planned column */
+    .roadmap-column-planned .roadmap-column-header {
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    }
+    
+    .roadmap-column-planned .roadmap-column-count {
+      background: #2196f3;
+      color: white;
+    }
+    
+    .roadmap-column-body {
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    /* Feature cards */
+    .roadmap-card {
+      padding: var(--space-md);
+      background: var(--warm-gray-100);
+      border-radius: var(--border-radius);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    
+    .roadmap-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .roadmap-card-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .roadmap-card-title::after {
+      content: '→';
+      margin-left: auto;
+      opacity: 0;
+      transition: opacity 0.2s;
+      color: var(--text-muted);
+    }
+    
+    .roadmap-card:hover .roadmap-card-title::after {
+      opacity: 1;
+    }
+    
+    .roadmap-card-desc {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    
+    .roadmap-card-version {
+      display: inline-block;
+      margin-top: var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: var(--warm-gray-200);
+      color: var(--text-muted);
+    }
+    
+    /* CLI/UI Badges */
+    .roadmap-card-badge {
+      display: inline-block;
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    
+    .roadmap-card-badge-cli {
+      background: var(--tokyo-bg);
+      color: var(--tokyo-cyan);
+    }
+    
+    .roadmap-card-badge-ui {
+      background: var(--orange-bg);
+      color: var(--orange-text);
+    }
+    
+    .roadmap-column-done .roadmap-card-version {
+      background: #c8e6c9;
+      color: #2e7d32;
+    }
+    
+    .roadmap-column-dev .roadmap-card-version {
+      background: #ffe4cc;
+      color: var(--orange-text);
+    }
+    
+    .roadmap-column-planned .roadmap-card-version {
+      background: #bbdefb;
+      color: #1565c0;
+    }
+    
+    /* Future section */
+    .roadmap-future {
+      background: var(--tokyo-bg);
+      border-radius: var(--border-radius-lg);
+      padding: var(--space-xl);
+      margin-top: var(--space-2xl);
+    }
+    
+    .roadmap-future-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .roadmap-future-icon {
+      font-size: 1.5rem;
+    }
+    
+    .roadmap-future-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--tokyo-fg);
+    }
+    
+    .roadmap-future-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: var(--space-md);
+    }
+    
+    .roadmap-future-card {
+      padding: var(--space-md);
+      background: var(--tokyo-bg-highlight);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--tokyo-bg-highlight);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    
+    .roadmap-future-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--tokyo-cyan);
+    }
+    
+    .roadmap-future-card-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--tokyo-cyan);
+      margin-bottom: 0.25rem;
+    }
+    
+    .roadmap-future-card-desc {
+      font-size: 0.8125rem;
+      color: var(--tokyo-comment);
+      line-height: 1.5;
+    }
+    
+    /* Note */
+    .roadmap-note {
+      text-align: center;
+      margin-top: var(--space-2xl);
+      padding: var(--space-lg);
+      background: var(--orange-bg-light);
+      border-radius: var(--border-radius);
+      border: 1px dashed var(--orange-light);
+    }
+    
+    .roadmap-note-text {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+    
+    .roadmap-note-text strong {
+      color: var(--orange-text);
+    }
+    
+    /* v1.0 milestone */
+    .roadmap-milestone {
+      text-align: center;
+      margin-top: var(--space-3xl);
+      padding: var(--space-2xl);
+      background: linear-gradient(135deg, var(--orange-bg) 0%, var(--cream) 100%);
+      border-radius: var(--border-radius-lg);
+      border: 2px solid var(--orange-light);
+    }
+    
+    .roadmap-milestone-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--orange-dark);
+      color: white;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: var(--border-radius);
+      margin-bottom: var(--space-md);
+    }
+    
+    .roadmap-milestone-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .roadmap-milestone-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    /* Feature Modal */
+    .feature-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg);
+      background: rgba(26, 27, 38, 0.8);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    
+    .feature-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .feature-modal-content {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border-radius: var(--border-radius-lg);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      transform: translateY(-20px) scale(0.95);
+      transition: transform 0.2s;
+    }
+    
+    .feature-modal.open .feature-modal-content {
+      transform: translateY(0) scale(1);
+    }
+    
+    .feature-modal-header {
+      padding: var(--space-lg);
+      background: linear-gradient(135deg, var(--orange-bg) 0%, var(--cream) 100%);
+      border-bottom: 1px solid var(--warm-gray-200);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+    
+    .feature-modal-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    
+    .feature-modal-header-text {
+      flex: 1;
+    }
+    
+    .feature-modal-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    
+    .feature-modal-version {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--orange-text);
+    }
+    
+    .feature-modal-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.1);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-size: 1.25rem;
+      transition: background 0.2s;
+    }
+    
+    .feature-modal-close:hover {
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text-primary);
+    }
+    
+    .feature-modal-body {
+      padding: var(--space-lg);
+    }
+    
+    .feature-modal-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .feature-modal-options {
+      background: var(--warm-gray-100);
+      border-radius: var(--border-radius);
+      padding: var(--space-md);
+    }
+    
+    .feature-modal-options-title {
+      font-weight: 600;
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .feature-modal-options-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .feature-modal-options-list li {
+      padding: 0.5rem 0;
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--warm-gray-200);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    
+    .feature-modal-options-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .feature-modal-options-list li::before {
+      content: '•';
+      color: var(--orange-primary);
+      font-weight: bold;
+    }
+    
+    /* Future modal variant */
+    .feature-modal-header-future {
+      background: var(--tokyo-bg);
+    }
+    
+    .feature-modal-header-future .feature-modal-title {
+      color: var(--tokyo-fg);
+    }
+    
+    .feature-modal-header-future .feature-modal-version {
+      color: var(--tokyo-cyan);
+    }
+    
+    .feature-modal-header-future .feature-modal-close {
+      background: var(--tokyo-bg-highlight);
+      color: var(--tokyo-fg);
+    }
+    
+    .feature-modal-header-future .feature-modal-close:hover {
+      background: var(--tokyo-comment);
+    }
+  </style>
+</head>
+<body class="help-page">
+  <!-- Navigation (loaded from components.js) -->
+  <div id="nav-placeholder"></div>
+
+  <!-- Hero Section -->
+  <header class="roadmap-hero">
+    <div class="roadmap-hero-container">
+      <span class="section-badge">Roadmap</span>
+      <h1 class="roadmap-hero-title">What's Coming Next</h1>
+      <p class="roadmap-hero-desc">
+        Track the development of Pulp Image. See what's done, what we're working on, and what's planned for future releases. Click any feature to learn more.
+      </p>
+    </div>
+  </header>
+
+  <!-- Roadmap Content -->
+  <main class="roadmap-content">
+    <div class="roadmap-container">
+      
+      <!-- Kanban Board -->
+      <div class="roadmap-board">
+        
+        <!-- Done Column -->
+        <div class="roadmap-column roadmap-column-done">
+          <div class="roadmap-column-header">
+            <span class="roadmap-column-icon">✅</span>
+            <h2 class="roadmap-column-title">Done</h2>
+            <span class="roadmap-column-count">11</span>
+          </div>
+          <div class="roadmap-column-body">
+            <div class="roadmap-card" data-feature="format-conversion">
+              <div class="roadmap-card-title">Format Conversion</div>
+              <div class="roadmap-card-desc">Convert between PNG, JPG, WebP, and AVIF</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="resize">
+              <div class="roadmap-card-title">Resize</div>
+              <div class="roadmap-card-desc">Resize by width, height, or both with auto aspect ratio</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="quality">
+              <div class="roadmap-card-title">Quality Control</div>
+              <div class="roadmap-card-desc">Adjust compression quality (1-100)</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="lossless">
+              <div class="roadmap-card-title">Lossless Mode</div>
+              <div class="roadmap-card-desc">Preserve full quality for WebP and AVIF</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="transparency">
+              <div class="roadmap-card-title">Transparency Handling</div>
+              <div class="roadmap-card-desc">Flatten transparent areas with custom background color</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="batch">
+              <div class="roadmap-card-title">Batch Processing</div>
+              <div class="roadmap-card-desc">Process entire folders at once</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="auto-suffix">
+              <div class="roadmap-card-title">Auto Suffix</div>
+              <div class="roadmap-card-desc">Add dimensions to filename automatically</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="rename-patterns">
+              <div class="roadmap-card-title">Rename Patterns <span class="roadmap-card-badge roadmap-card-badge-ui">UI</span></div>
+              <div class="roadmap-card-desc">Use tokens like {name}, {ext}, {index} for output names</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="output-dir">
+              <div class="roadmap-card-title">Custom Output Directory</div>
+              <div class="roadmap-card-desc">Save processed files to any folder</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="delete-originals">
+              <div class="roadmap-card-title">Delete Originals <span class="roadmap-card-badge roadmap-card-badge-cli">CLI</span></div>
+              <div class="roadmap-card-desc">Remove source files after processing</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+            <div class="roadmap-card" data-feature="browser-ui">
+              <div class="roadmap-card-title">Browser-Based UI</div>
+              <div class="roadmap-card-desc">Full-featured interface, works offline, no uploads</div>
+              <span class="roadmap-card-version">v0.1.1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- In Development Column -->
+        <div class="roadmap-column roadmap-column-dev">
+          <div class="roadmap-column-header">
+            <span class="roadmap-column-icon">🚧</span>
+            <h2 class="roadmap-column-title">In Development</h2>
+            <span class="roadmap-column-count">6</span>
+          </div>
+          <div class="roadmap-column-body">
+            <div class="roadmap-card" data-feature="ui-redesign">
+              <div class="roadmap-card-title">UI Redesign</div>
+              <div class="roadmap-card-desc">Modern tabbed interface with dark mode</div>
+              <span class="roadmap-card-version">v0.2.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="results-redesign">
+              <div class="roadmap-card-title">Results Redesign</div>
+              <div class="roadmap-card-desc">Clearer output with operation summary (CLI and UI)</div>
+              <span class="roadmap-card-version">v0.2.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="rotate">
+              <div class="roadmap-card-title">Rotate</div>
+              <div class="roadmap-card-desc">Rotate images by 90°, 180°, 270°, or custom angle</div>
+              <span class="roadmap-card-version">v0.2.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="flip">
+              <div class="roadmap-card-title">Flip / Mirror</div>
+              <div class="roadmap-card-desc">Flip vertically or horizontally</div>
+              <span class="roadmap-card-version">v0.2.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="grayscale">
+              <div class="roadmap-card-title">Grayscale</div>
+              <div class="roadmap-card-desc">Convert images to black and white</div>
+              <span class="roadmap-card-version">v0.2.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="auto-orient">
+              <div class="roadmap-card-title">Auto-Orient</div>
+              <div class="roadmap-card-desc">Fix photos that appear sideways or upside down</div>
+              <span class="roadmap-card-version">v0.2.0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Planned Column -->
+        <div class="roadmap-column roadmap-column-planned">
+          <div class="roadmap-column-header">
+            <span class="roadmap-column-icon">📋</span>
+            <h2 class="roadmap-column-title">Planned</h2>
+            <span class="roadmap-column-count">17</span>
+          </div>
+          <div class="roadmap-column-body">
+            <!-- v0.3.0 -->
+            <div class="roadmap-card" data-feature="blur">
+              <div class="roadmap-card-title">Blur</div>
+              <div class="roadmap-card-desc">Soften images with adjustable intensity</div>
+              <span class="roadmap-card-version">v0.3.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="sharpen">
+              <div class="roadmap-card-title">Sharpen</div>
+              <div class="roadmap-card-desc">Enhance detail and clarity</div>
+              <span class="roadmap-card-version">v0.3.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="normalize">
+              <div class="roadmap-card-title">Normalize</div>
+              <div class="roadmap-card-desc">Auto-adjust contrast for better exposure</div>
+              <span class="roadmap-card-version">v0.3.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="color-adjustments">
+              <div class="roadmap-card-title">Color Adjustments</div>
+              <div class="roadmap-card-desc">Brightness, saturation, gamma, hue, and more</div>
+              <span class="roadmap-card-version">v0.3.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="negate">
+              <div class="roadmap-card-title">Negate / Invert</div>
+              <div class="roadmap-card-desc">Invert all colors (negative effect)</div>
+              <span class="roadmap-card-version">v0.3.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="tint">
+              <div class="roadmap-card-title">Tint</div>
+              <div class="roadmap-card-desc">Apply a color overlay to images</div>
+              <span class="roadmap-card-version">v0.3.0</span>
+            </div>
+            <!-- v0.4.0 -->
+            <div class="roadmap-card" data-feature="trim">
+              <div class="roadmap-card-title">Trim Whitespace</div>
+              <div class="roadmap-card-desc">Auto-remove uniform borders from images</div>
+              <span class="roadmap-card-version">v0.4.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="crop">
+              <div class="roadmap-card-title">Crop</div>
+              <div class="roadmap-card-desc">Crop by coordinates, aspect ratio, or visual selection</div>
+              <span class="roadmap-card-version">v0.4.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="blur-region">
+              <div class="roadmap-card-title">Blur/Pixelate Region</div>
+              <div class="roadmap-card-desc">Blur faces or sensitive areas for privacy</div>
+              <span class="roadmap-card-version">v0.4.0</span>
+            </div>
+            <!-- v0.5.0 -->
+            <div class="roadmap-card" data-feature="borders-padding">
+              <div class="roadmap-card-title">Borders & Padding</div>
+              <div class="roadmap-card-desc">Add frames or extend canvas with custom colors</div>
+              <span class="roadmap-card-version">v0.5.0</span>
+            </div>
+            <!-- v0.6.0 -->
+            <div class="roadmap-card" data-feature="watermark">
+              <div class="roadmap-card-title">Watermark</div>
+              <div class="roadmap-card-desc">Add image overlays with position, opacity, and scale</div>
+              <span class="roadmap-card-version">v0.6.0</span>
+            </div>
+            <!-- v0.7.0 -->
+            <div class="roadmap-card" data-feature="presets">
+              <div class="roadmap-card-title">User Presets</div>
+              <div class="roadmap-card-desc">Save and reuse your favorite settings</div>
+              <span class="roadmap-card-version">v0.7.0</span>
+            </div>
+            <!-- v0.8.0 -->
+            <div class="roadmap-card" data-feature="multi-export">
+              <div class="roadmap-card-title">Multi-Format Export</div>
+              <div class="roadmap-card-desc">Export same image to multiple formats at once</div>
+              <span class="roadmap-card-version">v0.8.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="multi-size">
+              <div class="roadmap-card-title">Multi-Size Export</div>
+              <div class="roadmap-card-desc">Export same image at multiple sizes at once</div>
+              <span class="roadmap-card-version">v0.8.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="progressive-jpeg">
+              <div class="roadmap-card-title">Progressive JPEG</div>
+              <div class="roadmap-card-desc">Enable progressive loading (blurry to sharp)</div>
+              <span class="roadmap-card-version">v0.8.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="png-compression">
+              <div class="roadmap-card-title">PNG Compression</div>
+              <div class="roadmap-card-desc">Fine-tune PNG compression level</div>
+              <span class="roadmap-card-version">v0.8.0</span>
+            </div>
+            <div class="roadmap-card" data-feature="encoding-effort">
+              <div class="roadmap-card-title">Encoding Effort</div>
+              <div class="roadmap-card-desc">Control WebP/AVIF encoding effort for smaller files</div>
+              <span class="roadmap-card-version">v0.8.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Future Section -->
+      <div class="roadmap-future">
+        <div class="roadmap-future-header">
+          <span class="roadmap-future-icon">🔮</span>
+          <h2 class="roadmap-future-title">Future (v1.1.0+)</h2>
+        </div>
+        <div class="roadmap-future-grid">
+          <div class="roadmap-future-card" data-feature="preserve-metadata">
+            <div class="roadmap-future-card-title">Preserve Metadata</div>
+            <div class="roadmap-future-card-desc">Keep original EXIF data instead of stripping</div>
+          </div>
+          <div class="roadmap-future-card" data-feature="icc-profile">
+            <div class="roadmap-future-card-title">Custom ICC Profile</div>
+            <div class="roadmap-future-card-desc">Embed specific color profiles</div>
+          </div>
+          <div class="roadmap-future-card" data-feature="animated">
+            <div class="roadmap-future-card-title">Animated GIF/WebP</div>
+            <div class="roadmap-future-card-desc">Process animated images</div>
+          </div>
+          <div class="roadmap-future-card" data-feature="denoise">
+            <div class="roadmap-future-card-title">Denoise</div>
+            <div class="roadmap-future-card-desc">Reduce noise while preserving edges</div>
+          </div>
+          <div class="roadmap-future-card" data-feature="pure-bw">
+            <div class="roadmap-future-card-title">Pure Black & White</div>
+            <div class="roadmap-future-card-desc">Convert to only black and white pixels (stencil effect)</div>
+          </div>
+          <div class="roadmap-future-card" data-feature="extract-frame">
+            <div class="roadmap-future-card-title">Extract Frame</div>
+            <div class="roadmap-future-card-desc">Get single frame from animation</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- v1.0 Milestone -->
+      <div class="roadmap-milestone">
+        <span class="roadmap-milestone-badge">v1.0.0</span>
+        <h3 class="roadmap-milestone-title">Stable Release Goal</h3>
+        <p class="roadmap-milestone-desc">
+          All planned features complete. Comprehensive documentation. Stable CLI with no breaking changes.
+        </p>
+      </div>
+
+      <!-- Note -->
+      <div class="roadmap-note">
+        <p class="roadmap-note-text">
+          <strong>No fixed release dates.</strong> Features ship when they're ready. Want to help? Check out the <a href="https://github.com/rebelliongeeks/pulp-image" target="_blank" rel="noopener" style="color: var(--orange-text); text-decoration: underline;">GitHub repo</a>.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Feature Modal -->
+  <div class="feature-modal" id="feature-modal">
+    <div class="feature-modal-content">
+      <div class="feature-modal-header" id="feature-modal-header">
+        <span class="feature-modal-icon" id="feature-modal-icon">🖼️</span>
+        <div class="feature-modal-header-text">
+          <h3 class="feature-modal-title" id="feature-modal-title">Feature Name</h3>
+          <span class="feature-modal-version" id="feature-modal-version">v0.1.x</span>
+        </div>
+        <button class="feature-modal-close" id="feature-modal-close" aria-label="Close">×</button>
+      </div>
+      <div class="feature-modal-body">
+        <p class="feature-modal-desc" id="feature-modal-desc">Feature description goes here.</p>
+        <div class="feature-modal-options" id="feature-modal-options" style="display: none;">
+          <div class="feature-modal-options-title">Options</div>
+          <ul class="feature-modal-options-list" id="feature-modal-options-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer (loaded from components.js) -->
+  <div id="footer-placeholder"></div>
+
+  <script src="components.js"></script>
+  <script src="app.js"></script>
+  <script src="search.js"></script>
+  <script>
+    // Feature data for modals
+    const featureData = {
+      // Done features
+      'format-conversion': {
+        icon: '🔄',
+        title: 'Format Conversion',
+        version: 'v0.1.1',
+        desc: 'Convert images between different formats with full quality control. Pulp Image supports all major web formats.',
+        options: ['PNG (lossless, great for graphics)', 'JPG (lossy, best for photos)', 'WebP (modern, great compression)', 'AVIF (newest, best compression)']
+      },
+      'resize': {
+        icon: '📐',
+        title: 'Resize',
+        version: 'v0.1.1',
+        desc: 'Resize images by width, height, or exact dimensions. Aspect ratio is preserved by default when only one dimension is specified.',
+        options: ['Resize by width (height auto-calculated)', 'Resize by height (width auto-calculated)', 'Resize to exact dimensions', 'Aspect ratio preservation']
+      },
+      'quality': {
+        icon: '⚙️',
+        title: 'Quality Control',
+        version: 'v0.1.1',
+        desc: 'Fine-tune compression quality for lossy formats. Higher values mean better quality but larger files.',
+        options: ['Quality range: 1-100', 'Default: JPG=80, WebP=80, AVIF=50', 'Higher = better quality, larger file', 'Lower = smaller file, more compression']
+      },
+      'lossless': {
+        icon: '💎',
+        title: 'Lossless Mode',
+        version: 'v0.1.1',
+        desc: 'Preserve full image quality with lossless compression. Ideal for graphics, logos, and images that need to be edited later.',
+        options: ['WebP lossless compression', 'AVIF lossless compression', 'PNG is always lossless', 'No quality degradation']
+      },
+      'transparency': {
+        icon: '🎨',
+        title: 'Transparency Handling',
+        version: 'v0.1.1',
+        desc: 'Control how transparent areas are handled when converting to formats that don\'t support transparency (like JPG).',
+        options: ['Flatten to custom background color', 'Default background: white (#ffffff)', 'Error mode: fail if transparency exists', 'Preserves transparency for PNG/WebP/AVIF']
+      },
+      'batch': {
+        icon: '📁',
+        title: 'Batch Processing',
+        version: 'v0.1.1',
+        desc: 'Process entire folders of images at once. Pulp Image finds all supported images and processes them with the same settings.',
+        options: ['Process entire directories', 'Recursive folder scanning', 'Progress reporting', 'Detailed statistics per file']
+      },
+      'auto-suffix': {
+        icon: '🏷️',
+        title: 'Auto Suffix',
+        version: 'v0.1.1',
+        desc: 'Automatically add dimension information to output filenames. Great for organizing responsive images.',
+        options: ['Width suffix: image-800w.jpg', 'Height suffix: image-600h.jpg', 'Both: image-800x600.jpg', 'Combines with custom suffix']
+      },
+      'rename-patterns': {
+        icon: '✏️',
+        title: 'Rename Patterns',
+        version: 'v0.1.1',
+        desc: 'Use tokens to create custom output filenames. Perfect for batch renaming with sequential numbers. Available in UI only.',
+        options: ['{name} - Original filename without extension', '{ext} - Output file extension', '{index} - Sequential number (1, 2, 3...)', 'Example: {name}-thumb-{index}.{ext}']
+      },
+      'output-dir': {
+        icon: '📂',
+        title: 'Custom Output Directory',
+        version: 'v0.1.1',
+        desc: 'Save processed images to any folder. The directory is created automatically if it doesn\'t exist.',
+        options: ['Default: ./pulp-image-results', 'Keeps originals safe', 'Auto-creates directories', 'Absolute or relative paths']
+      },
+      'delete-originals': {
+        icon: '🗑️',
+        title: 'Delete Originals',
+        version: 'v0.1.1',
+        desc: 'Optionally delete original files after successful processing. CLI only (browser security prevents file deletion).',
+        options: ['Only after successful processing', 'Only if input/output paths differ', 'CLI only feature', 'Use with caution!']
+      },
+      'browser-ui': {
+        icon: '🌐',
+        title: 'Browser-Based UI',
+        version: 'v0.1.1',
+        desc: 'A full-featured graphical interface that runs in your browser. Works completely offline with no file uploads.',
+        options: ['100% local processing', 'Works offline', 'Launch with: pulp ui']
+      },
+      // In Development features
+      'ui-redesign': {
+        icon: '🎨',
+        title: 'UI Redesign',
+        version: 'v0.2.0',
+        desc: 'A complete redesign of the browser UI with a modern, minimal aesthetic. Includes tabs to organize controls and dark mode support.',
+        options: ['Tabbed interface for organization', 'Modern, minimal design', 'Dark mode support', 'Pulp brand colors preserved']
+      },
+      'results-redesign': {
+        icon: '📊',
+        title: 'Results Redesign',
+        version: 'v0.2.0',
+        desc: 'Improved results display for both CLI and UI. Shows what operations were applied in human-readable format, with neutral size comparison that works for any operation.',
+        options: ['Human-readable operation summary', 'Neutral size framing (+/- instead of "saved")', 'Works for compression, resize, rotate, watermark, etc.', 'Cleaner, more informative output']
+      },
+      'rotate': {
+        icon: '🔄',
+        title: 'Rotate',
+        version: 'v0.2.0',
+        desc: 'Rotate images by preset angles or custom degrees. Perfect for fixing orientation or creative effects.',
+        options: ['90° clockwise', '180° flip', '270° (90° counter-clockwise)', 'Custom angle rotation']
+      },
+      'flip': {
+        icon: '↔️',
+        title: 'Flip / Mirror',
+        version: 'v0.2.0',
+        desc: 'Mirror images horizontally or vertically. Useful for creating reflections or fixing mirrored selfies.',
+        options: ['Flip horizontal (mirror)', 'Flip vertical (upside down)', 'Can combine with rotate']
+      },
+      'grayscale': {
+        icon: '⬛',
+        title: 'Grayscale',
+        version: 'v0.2.0',
+        desc: 'Convert color images to black and white. Creates a classic look while often reducing file size.',
+        options: ['Full color to grayscale conversion', 'Preserves luminance values', 'Works with all formats']
+      },
+      'auto-orient': {
+        icon: '📱',
+        title: 'Auto-Orient',
+        version: 'v0.2.0',
+        desc: 'Automatically fix image orientation based on EXIF data. Fixes photos that appear sideways or upside down from phone cameras.',
+        options: ['Reads EXIF orientation tag', 'Rotates image to correct orientation', 'Strips orientation metadata after fix', 'No visual change if already correct']
+      },
+      // Planned features
+      'blur': {
+        icon: '🌫️',
+        title: 'Blur',
+        version: 'v0.3.0',
+        desc: 'Apply gaussian blur to soften images. Adjustable intensity for subtle softening or strong blur effects.',
+        options: ['Adjustable blur intensity', 'Gaussian blur algorithm', 'Great for backgrounds', 'Can create dreamy effects']
+      },
+      'sharpen': {
+        icon: '🔪',
+        title: 'Sharpen',
+        version: 'v0.3.0',
+        desc: 'Enhance edges and details in images. Especially useful after resizing to restore crispness.',
+        options: ['Adjustable sharpening strength', 'Great after resize operations', 'Enhances edge contrast', 'Can bring out texture']
+      },
+      'normalize': {
+        icon: '📊',
+        title: 'Normalize',
+        version: 'v0.3.0',
+        desc: 'Automatically adjust contrast by stretching the histogram. Improves exposure in underexposed or low-contrast images.',
+        options: ['Auto-enhances contrast', 'Stretches histogram to full range', 'One-click improvement', 'Great for dull photos']
+      },
+      'color-adjustments': {
+        icon: '🎨',
+        title: 'Color Adjustments',
+        version: 'v0.3.0',
+        desc: 'Fine-tune image appearance with brightness, saturation, gamma, and hue controls.',
+        options: ['Brightness: lighten or darken', 'Saturation: color intensity', 'Gamma: brightness curve', 'Hue: shift colors on color wheel']
+      },
+      'negate': {
+        icon: '🔄',
+        title: 'Negate / Invert',
+        version: 'v0.3.0',
+        desc: 'Invert all colors in the image, creating a photographic negative effect.',
+        options: ['Inverts all RGB channels', 'Creates negative effect', 'Can create artistic looks']
+      },
+      'tint': {
+        icon: '🎭',
+        title: 'Tint',
+        version: 'v0.3.0',
+        desc: 'Apply a color overlay to images. Create sepia, vintage, or custom color effects.',
+        options: ['Custom color overlay', 'Create sepia effects', 'Vintage photo looks', 'Color picker in UI']
+      },
+      'trim': {
+        icon: '✂️',
+        title: 'Trim Whitespace',
+        version: 'v0.4.0',
+        desc: 'Automatically remove uniform borders from images. Perfect for cleaning up screenshots, logos, and graphics.',
+        options: ['Auto-detects border color', 'Removes uniform edges', 'Great for logos/graphics', 'Reduces canvas to content']
+      },
+      'crop': {
+        icon: '🖼️',
+        title: 'Crop',
+        version: 'v0.4.0',
+        desc: 'Crop images by coordinates, aspect ratio, or visual selection. The UI will include a drag-and-drop crop tool.',
+        options: ['Crop by pixel coordinates', 'Aspect ratio presets (16:9, 4:3, 1:1)', 'Visual drag-and-drop (UI)', 'Center crop option']
+      },
+      'blur-region': {
+        icon: '👤',
+        title: 'Blur/Pixelate Region',
+        version: 'v0.4.0',
+        desc: 'Blur or pixelate specific areas of an image. Perfect for privacy, hiding sensitive information, or faces.',
+        options: ['Blur specific regions', 'Pixelate for censoring', 'Drag-and-drop selection (UI)', 'Coordinate-based (CLI)']
+      },
+      'borders-padding': {
+        icon: '🖼️',
+        title: 'Borders & Padding',
+        version: 'v0.5.0',
+        desc: 'Add frames or extend the canvas with custom colors. Create borders or add spacing around images.',
+        options: ['Add visible border frames', 'Add padding/spacing', 'Custom border colors', 'Uniform or per-side control']
+      },
+      'watermark': {
+        icon: '💧',
+        title: 'Watermark',
+        version: 'v0.6.0',
+        desc: 'Add image overlays as watermarks. Full control over position, opacity, scale, and tiling.',
+        options: ['Position: 9 preset positions + custom', 'Opacity: 0-100% transparency', 'Scale: relative or absolute size', 'Tile: repeat across entire image']
+      },
+      'presets': {
+        icon: '💾',
+        title: 'User Presets',
+        version: 'v0.7.0',
+        desc: 'Save and reuse your favorite processing settings. Includes built-in presets for common use cases.',
+        options: ['Save custom presets', 'Load presets by name', 'Built-in: web, thumbnail, social', 'Export/import for sharing']
+      },
+      'multi-export': {
+        icon: '📤',
+        title: 'Multi-Format Export',
+        version: 'v0.8.0',
+        desc: 'Export the same image to multiple formats in one operation. Perfect for web development workflows.',
+        options: ['Export to WebP + AVIF + JPG', 'One command, multiple outputs', 'Each format with own settings']
+      },
+      'multi-size': {
+        icon: '📏',
+        title: 'Multi-Size Export',
+        version: 'v0.8.0',
+        desc: 'Export the same image at multiple sizes for responsive design. Create all your image variants at once.',
+        options: ['Multiple widths in one command', 'Example: 400, 800, 1200px', 'Auto-suffix with sizes', 'Perfect for srcset']
+      },
+      'progressive-jpeg': {
+        icon: '📶',
+        title: 'Progressive JPEG',
+        version: 'v0.8.0',
+        desc: 'Enable progressive loading for JPG images. Images load blurry-to-sharp instead of top-to-bottom.',
+        options: ['Blurry → sharp loading', 'Better perceived performance', 'Slightly larger file size', 'Great for large images']
+      },
+      'png-compression': {
+        icon: '🗜️',
+        title: 'PNG Compression',
+        version: 'v0.8.0',
+        desc: 'Fine-tune PNG compression level. Higher compression means smaller files but slower encoding.',
+        options: ['Compression level 0-9', 'Always lossless (no quality loss)', 'Higher = smaller file, slower', 'Default: 6 (balanced)']
+      },
+      'encoding-effort': {
+        icon: '⚡',
+        title: 'Encoding Effort',
+        version: 'v0.8.0',
+        desc: 'Control encoding effort for WebP and AVIF. Higher effort means better compression but slower processing.',
+        options: ['WebP effort: 0-6', 'AVIF effort: 0-9', 'Higher = smaller files, slower', 'Default: balanced settings']
+      },
+      // Future features
+      'preserve-metadata': {
+        icon: '📋',
+        title: 'Preserve Metadata',
+        version: 'v1.1.0+',
+        desc: 'Keep original EXIF and ICC data instead of stripping. By default, metadata is removed for privacy and smaller files.',
+        options: ['Keep EXIF data (camera info, GPS)', 'Preserve ICC color profiles', 'Override default stripping'],
+        future: true
+      },
+      'icc-profile': {
+        icon: '🎨',
+        title: 'Custom ICC Profile',
+        version: 'v1.1.0+',
+        desc: 'Embed specific color profiles in images. Useful for professional color management workflows.',
+        options: ['Embed sRGB profile', 'Embed Display P3', 'Custom ICC file support'],
+        future: true
+      },
+      'animated': {
+        icon: '🎬',
+        title: 'Animated GIF/WebP',
+        version: 'v1.1.0+',
+        desc: 'Process animated images (resize, convert) while preserving animation frames.',
+        options: ['Resize animated GIFs', 'Convert GIF to animated WebP', 'Preserve all frames', 'Auto-detect animated images'],
+        future: true
+      },
+      'denoise': {
+        icon: '🔇',
+        title: 'Denoise',
+        version: 'v1.1.0+',
+        desc: 'Reduce noise in images while preserving edges. Uses median filter for natural-looking results.',
+        options: ['Adjustable filter size', 'Preserves edges', 'Great for low-light photos', 'Reduces graininess'],
+        future: true
+      },
+      'pure-bw': {
+        icon: '⬛',
+        title: 'Pure Black & White',
+        version: 'v1.1.0+',
+        desc: 'Convert to only black and white pixels with no gray. Creates a stencil or high-contrast effect.',
+        options: ['Adjustable threshold (1-255)', 'Default: 128 (middle)', 'Below threshold → black', 'Above threshold → white'],
+        future: true
+      },
+      'extract-frame': {
+        icon: '🎞️',
+        title: 'Extract Frame',
+        version: 'v1.1.0+',
+        desc: 'Extract a single frame from an animated GIF or WebP as a static image.',
+        options: ['Specify frame number', 'Default: first frame (0)', 'Output as any format'],
+        future: true
+      }
+    };
+
+    // Modal functionality
+    const modal = document.getElementById('feature-modal');
+    const modalHeader = document.getElementById('feature-modal-header');
+    const modalIcon = document.getElementById('feature-modal-icon');
+    const modalTitle = document.getElementById('feature-modal-title');
+    const modalVersion = document.getElementById('feature-modal-version');
+    const modalDesc = document.getElementById('feature-modal-desc');
+    const modalOptions = document.getElementById('feature-modal-options');
+    const modalOptionsList = document.getElementById('feature-modal-options-list');
+    const modalClose = document.getElementById('feature-modal-close');
+
+    function openFeatureModal(featureId) {
+      const feature = featureData[featureId];
+      if (!feature) return;
+
+      modalIcon.textContent = feature.icon;
+      modalTitle.textContent = feature.title;
+      modalVersion.textContent = feature.version;
+      modalDesc.textContent = feature.desc;
+
+      // Handle future styling
+      if (feature.future) {
+        modalHeader.classList.add('feature-modal-header-future');
+      } else {
+        modalHeader.classList.remove('feature-modal-header-future');
+      }
+
+      // Handle options
+      if (feature.options && feature.options.length > 0) {
+        modalOptions.style.display = 'block';
+        modalOptionsList.innerHTML = feature.options.map(opt => `<li>${opt}</li>`).join('');
+      } else {
+        modalOptions.style.display = 'none';
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFeatureModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Event listeners
+    document.querySelectorAll('.roadmap-card, .roadmap-future-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const featureId = card.dataset.feature;
+        openFeatureModal(featureId);
+      });
+    });
+
+    modalClose.addEventListener('click', closeFeatureModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeFeatureModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) {
+        closeFeatureModal();
+      }
+    });
+  </script>
+</body>
+</html>

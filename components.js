@@ -3,7 +3,7 @@
  * Header and Footer are loaded from a single source
  */
 
-const SITE_VERSION = 'v0.1.6';
+const SITE_VERSION = 'v0.1.8';
 
 // Navigation HTML - Single source of truth
 function getNavHTML(activePage = '') {
@@ -25,8 +25,45 @@ function getNavHTML(activePage = '') {
           <span class="nav-search-hint" id="search-shortcut-hint">⌘K</span>
         </button>
         <a href="/#features" class="nav-link">Features</a>
-        <a href="ui.html" class="nav-link" ${isActive('ui')}>UI Guide</a>
-        <a href="cli.html" class="nav-link" ${isActive('cli')}>CLI Reference</a>
+        <div class="nav-dropdown">
+          <button class="nav-link nav-dropdown-trigger" ${activePage === 'ui' || activePage === 'cli' ? 'style="color: var(--orange-text);"' : ''}>
+            Help
+            <svg class="nav-dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="ui.html" class="nav-dropdown-item" ${isActive('ui')}>
+              <span class="nav-dropdown-icon">🎛️</span>
+              <span class="nav-dropdown-text">
+                <span class="nav-dropdown-title">UI Guide</span>
+                <span class="nav-dropdown-desc">Browser interface documentation</span>
+              </span>
+            </a>
+            <a href="cli.html" class="nav-dropdown-item" ${isActive('cli')}>
+              <span class="nav-dropdown-icon">⌘</span>
+              <span class="nav-dropdown-text">
+                <span class="nav-dropdown-title">CLI Reference</span>
+                <span class="nav-dropdown-desc">Command-line options and examples</span>
+              </span>
+            </a>
+            <div class="nav-dropdown-divider"></div>
+            <a href="roadmap.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-icon">🗺️</span>
+              <span class="nav-dropdown-text">
+                <span class="nav-dropdown-title">Roadmap</span>
+                <span class="nav-dropdown-desc">Upcoming features</span>
+              </span>
+            </a>
+            <a href="changelog.html" class="nav-dropdown-item">
+              <span class="nav-dropdown-icon">📋</span>
+              <span class="nav-dropdown-text">
+                <span class="nav-dropdown-title">Changelog</span>
+                <span class="nav-dropdown-desc">Version history</span>
+              </span>
+            </a>
+          </div>
+        </div>
         <a href="https://github.com/rebelliongeeks/pulp-image" target="_blank" rel="noopener" class="nav-link nav-link-github">
           <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -86,6 +123,8 @@ function getFooterHTML() {
             <span class="footer-links-title">Documentation</span>
             <a href="cli.html" class="footer-link">CLI Reference</a>
             <a href="ui.html" class="footer-link">UI Guide</a>
+            <a href="roadmap.html" class="footer-link">Roadmap</a>
+            <a href="changelog.html" class="footer-link">Changelog</a>
           </div>
           <div class="footer-links-group">
             <span class="footer-links-title">Community</span>
@@ -120,6 +159,8 @@ function loadComponents() {
   let activePage = '';
   if (path.includes('cli.html')) activePage = 'cli';
   else if (path.includes('ui.html')) activePage = 'ui';
+  else if (path.includes('roadmap.html')) activePage = 'roadmap';
+  else if (path.includes('changelog.html')) activePage = 'changelog';
   
   // Load navigation
   const navPlaceholder = document.getElementById('nav-placeholder');

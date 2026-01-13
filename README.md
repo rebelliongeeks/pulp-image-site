@@ -6,11 +6,11 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 
 ## ✅ Placeholders Status
 
-| Location | What to Replace | File(s) | Status |
-|----------|-----------------|---------|--------|
-| **UI Screenshots** | Replace `.screenshot-placeholder` elements with actual UI screenshots | `index.html`, `ui.html` | ✅ COMPLETED |
-| **Terminal Animations** | Replace `.terminal-placeholder` elements with asciinema embeds or GIFs | `index.html` | ✅ COMPLETED |
-| **Download ZIP URLs** | Update `getDownloadURL()` with real GitHub Release URLs | `app.js`, `search.js` | ✅ URLs configured (need actual files) |
+| Location                | What to Replace                                                        | File(s)                 | Status                                |
+| ----------------------- | ---------------------------------------------------------------------- | ----------------------- | ------------------------------------- |
+| **UI Screenshots**      | Replace `.screenshot-placeholder` elements with actual UI screenshots  | `index.html`, `ui.html` | ✅ COMPLETED                           |
+| **Terminal Animations** | Replace `.terminal-placeholder` elements with asciinema embeds or GIFs | `index.html`            | ✅ COMPLETED                           |
+| **Download ZIP URLs**   | Update `getDownloadURL()` with real GitHub Release URLs                | `app.js`, `search.js`   | ✅ URLs configured (need actual files) |
 
 ### Screenshots Added
 
@@ -41,6 +41,7 @@ Landing page and documentation site for [Pulp Image](https://github.com/rebellio
 ### Download Files to Create
 
 Create and upload to GitHub Releases:
+
 - `pulp-image-windows.zip` — Windows portable UI
 - `pulp-image-macos.zip` — macOS portable UI (universal)
 - `pulp-image-linux.zip` — Linux portable UI
@@ -67,6 +68,7 @@ pulp-site/
 ## Features
 
 ### Landing Page (`index.html`)
+
 - Hero section with npm install command (click-to-copy)
 - OS-detection download button for portable UI (detects Windows/macOS/Linux)
 - Dropdown to select alternate OS
@@ -78,12 +80,14 @@ pulp-site/
 - Footer with GitHub link and "Made in Cyprus with love by Rebellion Geeks"
 
 ### CLI Reference (`cli.html`)
+
 - Complete documentation of all CLI commands and options
 - Tokyo Night themed terminal code blocks
 - Click-to-copy on every command example
 - Sections: Installation, Basic Usage, All Options, Resize, Format Conversion, Batch Processing, Safety, Transparency, Real-World Examples, Browser UI Mode, Troubleshooting
 
 ### UI Guide (`ui.html`)
+
 - Complete guide to the browser-based UI
 - Screenshot placeholders for each section
 - Detailed explanation of every option
@@ -95,6 +99,7 @@ pulp-site/
 The header (navigation), footer, and search modal are controlled from a single source in `components.js`. 
 
 Each page includes:
+
 ```html
 <div id="nav-placeholder"></div>
 <!-- page content -->
@@ -133,23 +138,25 @@ The site uses a warm citrus/orange color scheme with Tokyo Night theme for termi
 | `--tokyo-yellow` | `#e0af68` | Highlights |
 
 **Fonts:**
+
 - Display: Fraunces (Google Fonts)
 - Body: DM Sans (Google Fonts)
 - Code: JetBrains Mono (Google Fonts)
 
 ### Badge System
 
-| Class | Style | Use For |
-|-------|-------|---------|
-| `.section-badge` | Orange bg + white text | UI-related content |
-| `.section-badge-dark` | Tokyo bg + cyan text | CLI-related content (light bg) |
-| `.section-badge-dark-on-dark` | Cyan border + cyan text | CLI content on dark bg |
-| `.feature-badge-ui` | Orange bg + white text | UI-only features |
-| `.feature-badge-cli` | Tokyo bg + cyan text | CLI-only features |
+| Class                         | Style                   | Use For                        |
+| ----------------------------- | ----------------------- | ------------------------------ |
+| `.section-badge`              | Orange bg + white text  | UI-related content             |
+| `.section-badge-dark`         | Tokyo bg + cyan text    | CLI-related content (light bg) |
+| `.section-badge-dark-on-dark` | Cyan border + cyan text | CLI content on dark bg         |
+| `.feature-badge-ui`           | Orange bg + white text  | UI-only features               |
+| `.feature-badge-cli`          | Tokyo bg + cyan text    | CLI-only features              |
 
 ## Development
 
 ### Preview locally
+
 ```bash
 cd pulp-site
 python3 -m http.server 8080
@@ -159,6 +166,7 @@ python3 -m http.server 8080
 Or use any static file server (e.g., `npx serve`).
 
 ### Updating version
+
 1. Update `SITE_VERSION` in `components.js`
 2. The footer will automatically use the new version
 
@@ -169,6 +177,7 @@ All placeholder content has been replaced with actual screenshots and animations
 ### Download URLs
 
 **In `app.js`** — Update `getDownloadURL()`:
+
 ```javascript
 function getDownloadURL(os) {
   const baseURL = 'https://github.com/rebelliongeeks/pulp-image/releases/latest/download/';
@@ -182,6 +191,7 @@ function getDownloadURL(os) {
 ```
 
 **In `search.js`** — Update `downloadForOS()`:
+
 ```javascript
 window.downloadForOS = function(os) {
   const baseURL = 'https://github.com/rebelliongeeks/pulp-image/releases/latest/download/';
@@ -201,13 +211,16 @@ Note: macOS uses a single package (works on both Intel and Apple Silicon).
 This site is **fully compatible with GitHub Pages**! It's 100% static HTML/CSS/JS with no server-side requirements.
 
 ### Steps to Deploy
+
 1. Push the `pulp-site/` folder contents to a repository
 2. Go to repository Settings → Pages
 3. Choose "Deploy from a branch" and select `main` (or your branch) and `/` (root)
 4. Your site will be live at `https://yourusername.github.io/repo-name/`
 
 ### Note on Paths
+
 If deploying to a subdirectory (e.g., `rebelliongeeks.github.io/pulp-image/`), update:
+
 - Logo paths in `components.js` (change `assets/` to `./assets/` or absolute paths)
 - Navigation links if needed
 
@@ -216,11 +229,13 @@ If deploying to a subdirectory (e.g., `rebelliongeeks.github.io/pulp-image/`), u
 **GitHub Releases provides free download analytics!**
 
 When you host your zip files as GitHub Release assets:
+
 1. Go to your repo → Releases → Create/Edit a release
 2. Upload the zip files as release assets
 3. GitHub automatically tracks download counts!
 
 To see download counts:
+
 - View the Releases page (shows counts next to each asset)
 - Use the GitHub API: `GET /repos/owner/repo/releases` includes `download_count` for each asset
 
@@ -235,6 +250,7 @@ The footer includes links to GitHub for user support:
 ### Setting Up GitHub Issue Templates
 
 Create these files in your main repo:
+
 ```
 .github/
 ├── ISSUE_TEMPLATE/
@@ -257,6 +273,7 @@ When moving this to its own repository:
 ## Search Feature
 
 The site includes a terminal-style fuzzy search (`search.js`) accessible via:
+
 - Search icon in navigation
 - Keyboard shortcut: `⌘K` (Mac) or `Ctrl+K` (Windows/Linux)
 
@@ -287,12 +304,14 @@ Search results are defined in the `SEARCH_INDEX` array in `search.js`. Each item
 | `action` | 🔗 | External links (GitHub, support) |
 
 **To add a new searchable item:**
+
 1. Open `search.js`
 2. Add an entry to `SEARCH_INDEX` array
 3. Make sure the `url` points to a valid page and anchor (e.g., `cli.html#resize`)
 4. The anchor must exist as an `id` attribute on the target section
 
 **Example: Adding a new CLI option**
+
 ```javascript
 {
   type: 'cli',
@@ -311,36 +330,39 @@ Search results are defined in the `SEARCH_INDEX` array in `search.js`. Each item
 This section documents all CLI functionality for reference when updating the site.
 
 ### Installation
+
 ```bash
 npm install -g pulp-image
 ```
 
 ### Basic Syntax
+
 ```bash
 pulp [input] [options]
 ```
 
 ### All CLI Options
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `-w, --width <number>` | Output width in pixels | — |
-| `-h, --height <number>` | Output height in pixels | — |
-| `-f, --format <format>` | Output format: `png`, `jpg`, `webp`, `avif` | Same as input |
-| `-o, --out <dir>` | Output directory | `./pulp-image-results` |
-| `--quality <number>` | Quality for lossy formats (1-100) | JPG: 80, WebP: 80, AVIF: 50 |
-| `--lossless` | Use lossless compression (WebP, AVIF) | Off |
-| `--suffix <text>` | Custom suffix before extension | — |
-| `--auto-suffix` | Auto-add size suffix (-800w, -600h) | Off |
-| `--background <color>` | Background color for flattening | `#ffffff` |
-| `--alpha-mode <mode>` | `flatten` or `error` | `flatten` |
-| `--overwrite` | Overwrite existing files | Off (skip) |
-| `--delete-original` | Delete originals after processing | Off |
-| `-v, --verbose` | Detailed output | Off |
-| `--version` | Show version | — |
-| `--help` | Show help | — |
+| Option                  | Description                                 | Default                     |
+| ----------------------- | ------------------------------------------- | --------------------------- |
+| `-w, --width <number>`  | Output width in pixels                      | —                           |
+| `-h, --height <number>` | Output height in pixels                     | —                           |
+| `-f, --format <format>` | Output format: `png`, `jpg`, `webp`, `avif` | Same as input               |
+| `-o, --out <dir>`       | Output directory                            | `./pulp-image-results`      |
+| `--quality <number>`    | Quality for lossy formats (1-100)           | JPG: 80, WebP: 80, AVIF: 50 |
+| `--lossless`            | Use lossless compression (WebP, AVIF)       | Off                         |
+| `--suffix <text>`       | Custom suffix before extension              | —                           |
+| `--auto-suffix`         | Auto-add size suffix (-800w, -600h)         | Off                         |
+| `--background <color>`  | Background color for flattening             | `#ffffff`                   |
+| `--alpha-mode <mode>`   | `flatten` or `error`                        | `flatten`                   |
+| `--overwrite`           | Overwrite existing files                    | Off (skip)                  |
+| `--delete-original`     | Delete originals after processing           | Off                         |
+| `-v, --verbose`         | Detailed output                             | Off                         |
+| `--version`             | Show version                                | —                           |
+| `--help`                | Show help                                   | —                           |
 
 ### UI Command
+
 ```bash
 pulp ui              # Start on port 3000
 pulp ui --port 8080  # Start on custom port
@@ -348,16 +370,17 @@ pulp ui --port 8080  # Start on custom port
 
 ### Supported Formats
 
-| Format | Transparency | Compression | Default Quality |
-|--------|--------------|-------------|-----------------|
-| PNG | ✓ Yes | Always lossless | — |
-| JPG | ✗ No | Always lossy | 80 |
-| WebP | ✓ Yes | Lossy or lossless | 80 |
-| AVIF | ✓ Yes | Lossy or lossless | 50 |
+| Format | Transparency | Compression       | Default Quality |
+| ------ | ------------ | ----------------- | --------------- |
+| PNG    | ✓ Yes        | Always lossless   | —               |
+| JPG    | ✗ No         | Always lossy      | 80              |
+| WebP   | ✓ Yes        | Lossy or lossless | 80              |
+| AVIF   | ✓ Yes        | Lossy or lossless | 50              |
 
 ### Example Terminal Output
 
 **Single file processing:**
+
 ```
 ✓ Processed: pulp-image-results/photo.png
   Original: 4.2 MB (3000x2000)
@@ -366,6 +389,7 @@ pulp ui --port 8080  # Start on custom port
 ```
 
 **Batch processing:**
+
 ```
 Found 12 image file(s) to process...
 
@@ -376,12 +400,14 @@ Found 12 image file(s) to process...
 ```
 
 **Skipped file:**
+
 ```
 ⚠ Skipped: image.png
   Reason: Output file already exists
 ```
 
 **Failed file:**
+
 ```
 ✗ Failed: corrupted.png
   Error: Could not read image file
@@ -423,25 +449,27 @@ pulp photo.jpg --width 1200 --auto-suffix --format webp --out ./responsive
 
 All options available in the browser UI:
 
-| Option | Description |
-|--------|-------------|
-| **Input Source** | Select files or folder. Supports PNG, JPG, WebP, AVIF. |
+| Option               | Description                                             |
+| -------------------- | ------------------------------------------------------- |
+| **Input Source**     | Select files or folder. Supports PNG, JPG, WebP, AVIF.  |
 | **Output Directory** | Where to save. Default: timestamped folder in home dir. |
-| **Output Format** | PNG, JPG, WebP, AVIF, or keep original. |
-| **Width** | Output width in pixels. Leave empty for auto. |
-| **Height** | Output height in pixels. Leave empty for auto. |
-| **Quality** | Slider 1-100 for lossy formats. |
-| **Lossless** | Toggle for lossless WebP/AVIF. |
-| **Alpha Mode** | Flatten (default) or Error. |
-| **Background Color** | Color picker for flattening transparency. |
-| **Rename Pattern** | Tokens: `{name}`, `{ext}`, `{index}` |
-| **Auto Suffix** | Auto-add dimension suffix (-800w, etc.) |
-| **Overwrite** | Allow overwriting existing files. |
+| **Output Format**    | PNG, JPG, WebP, AVIF, or keep original.                 |
+| **Width**            | Output width in pixels. Leave empty for auto.           |
+| **Height**           | Output height in pixels. Leave empty for auto.          |
+| **Quality**          | Slider 1-100 for lossy formats.                         |
+| **Lossless**         | Toggle for lossless WebP/AVIF.                          |
+| **Alpha Mode**       | Flatten (default) or Error.                             |
+| **Background Color** | Color picker for flattening transparency.               |
+| **Rename Pattern**   | Tokens: `{name}`, `{ext}`, `{index}`                    |
+| **Auto Suffix**      | Auto-add dimension suffix (-800w, etc.)                 |
+| **Overwrite**        | Allow overwriting existing files.                       |
 
 ### UI-Only Features
+
 - **Rename Pattern** with tokens — CLI users use shell tools like `mv` or `rename`
 
 ### CLI-Only Features
+
 - **--delete-original** — Browser security prevents file deletion
 - **--verbose** — UI shows results visually
 
@@ -501,21 +529,27 @@ pulp-site/
 ## Quick Reference for Common Tasks
 
 ### Update version
+
 Edit `SITE_VERSION` in `components.js`
 
 ### Update navigation
+
 Edit `getNavHTML()` in `components.js`
 
 ### Update footer
+
 Edit `getFooterHTML()` in `components.js`
 
 ### Update search content
+
 Edit `SEARCH_INDEX` array in `search.js`
 
 ### Change colors
+
 Edit CSS variables at top of `styles.css`
 
 ### Add new CLI option
+
 1. Add to options table in `cli.html`
 2. Add to search index in `search.js`
 3. Update features grid in `index.html` if significant
@@ -529,4 +563,3 @@ MIT License — same as the main Pulp Image project.
 ---
 
 Made in Cyprus with love by [Rebellion Geeks](https://rebelliongeeks.com)
-

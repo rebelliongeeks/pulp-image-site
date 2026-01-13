@@ -216,6 +216,107 @@ code {
   height: 18px;
 }
 
+/* Nav Dropdown */
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-dropdown-arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s;
+}
+
+.nav-dropdown:hover .nav-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  min-width: 260px;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--warm-gray-200);
+  padding: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+  z-index: 1000;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.nav-dropdown-item:hover {
+  background: var(--warm-gray-100);
+}
+
+.nav-dropdown-icon {
+  font-size: 1.25rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--warm-gray-100);
+  border-radius: 6px;
+}
+
+.nav-dropdown-item:hover .nav-dropdown-icon {
+  background: var(--orange-bg);
+}
+
+.nav-dropdown-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.nav-dropdown-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.nav-dropdown-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.nav-dropdown-divider {
+  height: 1px;
+  background: var(--warm-gray-200);
+  margin: 0.5rem 0;
+}
+
 /* Search Button */
 .nav-search-btn {
   display: flex;
@@ -480,6 +581,10 @@ code {
   }
   
   .nav-link:not(.nav-link-github) {
+    display: none;
+  }
+  
+  .nav-dropdown {
     display: none;
   }
   
@@ -1122,6 +1227,82 @@ code {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-xl);
+}
+
+/* Features Coming Soon Badge */
+.features-coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-2xl);
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--orange-bg) 0%, var(--cream) 100%);
+  border: 2px dashed var(--orange-light);
+  border-radius: var(--border-radius-lg);
+  text-decoration: none;
+  transition: all 0.3s;
+  animation: coming-soon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes coming-soon-pulse {
+  0%, 100% {
+    border-color: var(--orange-light);
+  }
+  50% {
+    border-color: var(--orange-primary);
+  }
+}
+
+.features-coming-soon:hover {
+  background: linear-gradient(135deg, var(--orange-bg-light) 0%, var(--orange-bg) 100%);
+  border-style: solid;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.15);
+}
+
+.features-coming-soon-sparkle {
+  font-size: 1.5rem;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-10deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.1);
+  }
+}
+
+.features-coming-soon-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.features-coming-soon-text strong {
+  font-size: 1rem;
+  color: var(--orange-text);
+  font-weight: 700;
+}
+
+.features-coming-soon-text span {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.features-coming-soon-arrow {
+  font-size: 1.25rem;
+  color: var(--orange-text);
+  transition: transform 0.2s;
+}
+
+.features-coming-soon:hover .features-coming-soon-arrow {
+  transform: translateX(4px);
 }
 
 .feature-card {

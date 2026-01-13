@@ -330,6 +330,20 @@
     },
     {
       type: 'page',
+      title: 'Roadmap',
+      description: 'See what features are coming next to Pulp Image',
+      url: 'roadmap.html',
+      keywords: ['roadmap', 'features', 'planned', 'upcoming', 'future', 'next', 'development']
+    },
+    {
+      type: 'page',
+      title: 'Changelog',
+      description: 'Version history and release notes for Pulp Image',
+      url: 'changelog.html',
+      keywords: ['changelog', 'version', 'history', 'release', 'notes', 'updates', 'what', 'new']
+    },
+    {
+      type: 'page',
       title: 'Features',
       description: 'Overview of all Pulp Image features',
       url: '/#features',
