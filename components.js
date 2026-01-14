@@ -102,7 +102,7 @@ function getNavHTML(activePage = '') {
       <div class="search-terminal-body">
         <div class="search-input-wrapper">
           <span class="search-prompt">❯</span>
-          <input type="text" class="search-input" id="search-input" placeholder="Type to search commands, options, and help..." autocomplete="off" spellcheck="false">
+          <input type="text" class="search-input" id="search-input" placeholder="Type to search commands, options, and more..." autocomplete="off" spellcheck="false">
         </div>
         <div class="search-results" id="search-results">
           <div class="search-hint-text">
