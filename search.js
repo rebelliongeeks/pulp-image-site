@@ -595,7 +595,7 @@
     if (container) {
       container.innerHTML = `
         <div class="search-hint-text">
-          <p>Start typing to search CLI commands, UI options, and documentation...</p>
+          <p>Start typing to search CLI commands, UI options, documentation, and more...</p>
           <div class="search-shortcuts">
             <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
             <span><kbd>Enter</kbd> Select</span>
