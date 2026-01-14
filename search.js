@@ -428,16 +428,11 @@
   
   // ============================================
   // Download Helper (exposed globally)
+  // Uses getDownloadURL from components.js
   // ============================================
   
   window.downloadForOS = function(os) {
-    const baseURL = 'https://github.com/rebelliongeeks/pulp-image/releases/latest/download/';
-    const files = {
-      'windows': 'pulp-image-windows.zip',
-      'macos': 'pulp-image-macos.zip',
-      'linux': 'pulp-image-linux.zip'
-    };
-    window.location.href = baseURL + (files[os] || files['linux']);
+    window.location.href = getDownloadURL(os);
   };
 
   // ============================================

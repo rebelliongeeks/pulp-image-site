@@ -43,16 +43,8 @@
     return names[os] || 'your system';
   }
   
-  function getDownloadURL(os) {
-    // These would be the actual download URLs when you package the app
-    const baseURL = 'https://github.com/rebelliongeeks/pulp-image/releases/latest/download/';
-    const files = {
-      'windows': 'pulp-image-windows.zip',
-      'macos': 'pulp-image-macos.zip',
-      'linux': 'pulp-image-linux.zip'
-    };
-    return baseURL + (files[os] || files['linux']);
-  }
+  // getDownloadURL is now defined in components.js as single source of truth
+  // Uses global getDownloadURL() function
 
   // ============================================
   // Copy to Clipboard

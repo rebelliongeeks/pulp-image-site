@@ -5,6 +5,21 @@
 
 const SITE_VERSION = 'v0.1.9';
 
+// Download URLs - Single source of truth
+// Update these when releasing a new version
+const DOWNLOAD_VERSION = '0.1.9';
+const DOWNLOAD_BASE_URL = `https://github.com/rebelliongeeks/pulp-image/releases/download/v${DOWNLOAD_VERSION}`;
+const DOWNLOADS = {
+  linux: `${DOWNLOAD_BASE_URL}/pulp-image-ui-linux-${DOWNLOAD_VERSION}.zip`,
+  macos: `${DOWNLOAD_BASE_URL}/pulp-image-ui-macos-${DOWNLOAD_VERSION}.zip`,
+  windows: `${DOWNLOAD_BASE_URL}/pulp-image-ui-windows-${DOWNLOAD_VERSION}.zip`
+};
+
+// Helper function to get download URL
+function getDownloadURL(os) {
+  return DOWNLOADS[os] || DOWNLOADS.linux;
+}
+
 // Navigation HTML - Single source of truth
 function getNavHTML(activePage = '') {
   const isActive = (page) => activePage === page ? 'style="color: var(--orange-text);"' : '';
@@ -184,6 +199,6 @@ function loadComponents() {
 
 // Export for use
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { getNavHTML, getFooterHTML, loadComponents, SITE_VERSION };
+  module.exports = { getNavHTML, getFooterHTML, loadComponents, SITE_VERSION, DOWNLOADS, DOWNLOAD_VERSION, getDownloadURL };
 }
 
