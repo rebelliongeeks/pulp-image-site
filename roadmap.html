@@ -537,9 +537,14 @@
           <div class="roadmap-column-header">
             <span class="roadmap-column-icon">✅</span>
             <h2 class="roadmap-column-title">Done</h2>
-            <span class="roadmap-column-count">11</span>
+            <span class="roadmap-column-count">12</span>
           </div>
           <div class="roadmap-column-body">
+            <div class="roadmap-card" data-feature="update-checker">
+              <div class="roadmap-card-title">Update Checker</div>
+              <div class="roadmap-card-desc">Notifies you when a new version is available</div>
+              <span class="roadmap-card-version">v0.1.9</span>
+            </div>
             <div class="roadmap-card" data-feature="format-conversion">
               <div class="roadmap-card-title">Format Conversion</div>
               <div class="roadmap-card-desc">Convert between PNG, JPG, WebP, and AVIF</div>
@@ -902,6 +907,13 @@
         version: 'v0.1.1',
         desc: 'A full-featured graphical interface that runs in your browser. Works completely offline with no file uploads.',
         options: ['100% local processing', 'Works offline', 'Launch with: pulp ui']
+      },
+      'update-checker': {
+        icon: '🔔',
+        title: 'Update Checker',
+        version: 'v0.1.9',
+        desc: 'Automatically checks for new versions and notifies you when an update is available. Works in both CLI and UI.',
+        options: ['Checks npm registry for latest version', 'Shows update notification in CLI output', 'Displays banner in UI when update available', 'Caches results to avoid frequent network requests']
       },
       // In Development features
       'ui-redesign': {
