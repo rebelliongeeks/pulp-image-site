@@ -675,6 +675,10 @@ code {
   font-size: 1rem;
 }
 
+.hero-badge a:hover {
+  text-decoration: underline;
+}
+
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 3.75rem);
@@ -2238,6 +2242,10 @@ code {
   align-items: center;
   font-size: 0.875rem;
   color: var(--warm-gray-500);
+}
+
+.footer-license a:hover {
+  text-decoration: underline;
 }
 
 .footer-version {

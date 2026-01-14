@@ -159,7 +159,7 @@ function getFooterHTML() {
         </div>
       </div>
       <div class="footer-bottom">
-        <span class="footer-license">MIT License • Open Source</span>
+        <span class="footer-license"><a target="_blank" href="https://github.com/rebelliongeeks/pulp-image?tab=MIT-1-ov-file#readme">MIT License</a> • <a target="_blank" href="https://github.com/rebelliongeeks/pulp-image">Open Source</a></span>
         <span class="footer-version">${SITE_VERSION}</span>
       </div>
     </div>
